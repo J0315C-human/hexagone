@@ -4,7 +4,7 @@ import mediumMaps from './mediumMaps';
 import {sortMapByPosition} from '../utils/mapUtils';
 
 export default [
-	map0, 
-	...mediumMaps,
-	...easyMaps,
-].map(sortMapByPosition);//.reverse();
+  map0,
+  ...mediumMaps,
+  ...easyMaps,
+].map(sortMapByPosition); // .reverse();

@@ -5,8 +5,10 @@
         "**/bower_components": true,
         "**/dist": true
     },
-    "typescript.referencesCodeLens.enabled": true,
+    "typescript.referencesCodeLens.enabled": false,
     "tslint.ignoreDefinitionFiles": false,
     "tslint.autoFixOnSave": true,
-    "tslint.exclude": "**/node_modules/**/*" 
+    "tslint.exclude": "**/node_modules/**/*",
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2
 }
