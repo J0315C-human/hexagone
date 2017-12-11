@@ -1,6 +1,16 @@
 
 export type HexType = 'normal' | 'buffer';
 
+export interface HexLocation {
+    i: number;
+    j: number;
+}
+
+export interface HexPosition {
+    x: number;
+    y: number;
+}
+
 export interface HexDef {
     i: number;
     j: number;
@@ -14,3 +24,5 @@ export interface HexDef {
 
 
 export type MapDef = HexDef[];
+
+export type HexCoordinateSpace = HexLocation[][];
