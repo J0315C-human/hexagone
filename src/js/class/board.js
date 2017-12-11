@@ -29,7 +29,7 @@ export class Board {
 		autoBind(this);
 
 		this.setBoardEvents();
-		
+
 	}
 
 	setBoardEvents() {
@@ -54,13 +54,13 @@ export class Board {
 		if (idx !== null && glob.buildmode === true) {
 			handleBuildKey(e, this.hexes.get(idx), this.data, idx);
 		}
-		if (glob.buildmode && e.shiftKey){
-			switch( e.keyCode){
+		if (glob.buildmode && e.shiftKey) {
+			switch (e.keyCode) {
 				case 78:
 					this.addRandomHex();
 					break;
 				case 68:
-					if (idx !== null){
+					if (idx !== null) {
 						this.hexes.get(idx).die();
 					}
 					break;
@@ -91,14 +91,14 @@ export class Board {
 		const nHexes = this.hexes.length();
 
 		for (let idx = 0; idx <= nHexes; idx++) {
-			// reuse a 'dead' hexes' slot if available
-			if (this.hexes.get(idx).dead) {
-				this.hexes.replace(idx, newHex);
-				break;
-			}
 			// push a new hex to the array
 			if (idx === nHexes) {
 				this.hexes.add(newHex);
+				break;
+			}
+			// reuse a 'dead' hexes' slot if available
+			if (this.hexes.get(idx).dead) {
+				this.hexes.replace(idx, newHex);
 				break;
 			}
 		}

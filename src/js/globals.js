@@ -36,12 +36,12 @@ const glob = {
 	paused: true,
 	interfaceVisible: false,
 	layers: {
-		'interaction': 4,
-		'focus': 3,
-		'main': 2,
-		'dead': 1,
-		'background': 0,
-		'backstage': -1,
+		'interaction': '5',
+		'focus': '4',
+		'main': '3',
+		'dead': '2',
+		'background': '1',
+		'backstage': '0',
 	}
 };
 // generate the 'hex space' for the game board.

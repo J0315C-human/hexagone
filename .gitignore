@@ -13,9 +13,6 @@ logs
 results
 tmp
 
-#Build
-public/css/main.css
-
 # API keys and secrets
 .env
 
@@ -24,6 +21,7 @@ node_modules
 bower_components
 
 # Editors
+.vscode
 .idea
 *.iml
 
@@ -33,3 +31,6 @@ Thumbs.db
 
 # Ignore built ts files
 dist/**/*
+
+# Ignore built static bundle
+build/*

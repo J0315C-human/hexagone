@@ -63,4 +63,4 @@ const easy8: MapDef = [
   { i: 4, j: 4, timing: { delay: 2 }, type: 'buffer', dir: [0] },
 ];
 
-export default [easy1, easy2, easy3, easy4, easy5, easy6, easy7, easy8];
+export default [easy1, easy2, easy3, easy4, easy5, easy6, easy7, easy8] as MapDef[];

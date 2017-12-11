@@ -1,11 +1,7 @@
 import { Compressor, Vibrato, Freeverb, PolySynth, Synth } from 'Tone';
 import tunes from '../tunes';
 import glob from '../globals';
-import { TweenMax } from 'gsap';
 
-
-console.dir(TweenMax);
-console.dir(Compressor)
 let compressor = new Compressor(-20, 3).toMaster();
 let beepCompressor = new Compressor(0, 3).connect(compressor);
 let _tremolo = new Vibrato(5, 0.2).connect(compressor);
@@ -16,7 +12,7 @@ _freeverb.dampening.value = 1000;
 
 const _noteTriggerDelay = glob.preschedule_ms / 1000;
 
-// const _getDelay = (timeDelta) => `+${(glob.preschedule_ms - timeDelta) / 1000}`;
+// const _getDelay = (timeDelta) => `+${(glob.preschedule_ms - timeDelta) / 1000} `;
 
 const _defaultScale = [
 	'A4', 'B4', 'C4', 'D4', 'E4', 'F#4', 'G4',
