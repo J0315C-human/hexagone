@@ -2,7 +2,7 @@ import { TimelineLite, Power2, Power4, Power1, Linear } from 'gsap';
 import * as CSSRulePlugin from 'gsap/CSSRulePlugin';
 import * as gsap from 'gsap';
 import glob from './globals';
-const Color = require('color');
+import Color from 'color';
 
 const cols = {
   hex_A: '#aa6065',
