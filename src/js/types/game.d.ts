@@ -22,7 +22,12 @@ export interface HexDef {
     dir?: number[] | number;
 }
 
+export type winType = 'all' | 'buffers' | 'sources';
 
-export type MapDef = HexDef[];
+export interface MapDef {
+    winType: winType;
+    hint?: string;
+    hexes: HexDef[];
+}
 
 export type HexCoordinateSpace = HexLocation[][];

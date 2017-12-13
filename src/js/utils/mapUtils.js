@@ -8,13 +8,16 @@ export const sortMapByPosition = (mapDef) => {
 
 	for (let i = 0; i < glob.n_rows; i++) {
 		for (let j = 0; j < glob.n_cols; j++) {
-			mapDef.forEach(h => {
+			mapDef.hexes.forEach(h => {
 				if (h.i === i && h.j === j)
 					sorted.push(h);
 			});
 		}
 	}
-	return sorted;
+	return {
+		...mapDef,
+		hexes: sorted
+	}
 };
 
 

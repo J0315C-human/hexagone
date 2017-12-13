@@ -10,7 +10,7 @@ import { handleBuildKey } from '../utils/buildUtils';
 const _capacity = glob.n_rows * glob.n_cols;
 
 export class Board {
-	constructor(hexDefs) {
+	constructor(mapDef) {
 		this.data = {
 			isDragging: false,
 			dragStart: null, // position where mouse drag started
@@ -18,10 +18,9 @@ export class Board {
 		};
 
 		this.targets = new Targets();
-		this.hexes = new Hexes(hexDefs, true, this.data);
+		this.hexes = new Hexes(mapDef, true, this.data);
 		this.targets.initializeHexes(this.hexes);
 
-		this.logHexes = this.hexes.log;
 		this.checkWin = () => this.hexes.checkWin();
 		this.updateHexes = beat => this.hexes.update(beat);
 		this.clearMap = () => this.hexes.clear();
@@ -30,6 +29,10 @@ export class Board {
 
 		this.setBoardEvents();
 
+	}
+
+	logHexes() {
+		return this.hexes.log();
 	}
 
 	setBoardEvents() {
@@ -68,8 +71,8 @@ export class Board {
 		}
 	}
 
-	setupMap(hexDefs) {
-		this.hexes = new Hexes(hexDefs, true, this.data);
+	setupMap(mapDef) {
+		this.hexes = new Hexes(mapDef, true, this.data);
 		this.targets.initializeHexes(this.hexes);
 		this.data.isDragging = false;
 		this.data.dragStart = null;

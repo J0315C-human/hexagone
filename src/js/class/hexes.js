@@ -5,13 +5,13 @@ import hexUtils from '../utils/hexUtils';
 import autoBind from '../utils/autobind';
 
 export class Hexes {
-	constructor(hexDefs, animateIn = true, boardData) {
+	constructor(mapDef, animateIn = true, boardData) {
 		autoBind(this);
 		
 		this.boardData = boardData;
 		//create Hex objects
 		this.hexes = [];
-		hexDefs.forEach(hexDef => {
+		mapDef.hexes.forEach(hexDef => {
 			if (hexDef.i < glob.n_rows && hexDef.j < glob.n_cols)
 				this.hexes.push(new Hex(hexDef));
 		});
@@ -21,8 +21,8 @@ export class Hexes {
 		this.flashing = [];
 		this.dying = [];
 
-		this.numLiving = hexDefs.length;
-
+		this.numLiving = mapDef.hexes.length;
+		this.winType = mapDef.winType;
 		hexUtils.setMouseEventsAll(this.hexes, this.boardData);
 	}
 
@@ -97,14 +97,14 @@ export class Hexes {
 		this.dying = toDie;
 	}
 
-	checkWin(type) {
+	checkWin() {
 		const { hexes } = this;
 
-		switch (type) {
+		switch (this.winType) {
 			case 'all': {
 				for (let h of hexes) {
 					if (!h.dead)
-						return false;
+						return false;	
 				}
 				break;
 			}
