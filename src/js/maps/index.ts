@@ -1,10 +1,10 @@
-import map0 from './0';
+import demo from './demoMap';
 import easyMaps from './easyMaps';
 import mediumMaps from './mediumMaps';
 import {sortMapByPosition} from '../utils/mapUtils';
 
 export default [
-  map0,
+  demo,
   ...mediumMaps,
   ...easyMaps ,
 ].map(sortMapByPosition); // .reverse();

@@ -1,5 +1,5 @@
 import autoBind from '../utils/autobind';
-import mapText from '../maps/mapText';
+import maps from '../maps';
 import animate from '../animations';
 import glob from '../globals';
 
@@ -42,7 +42,7 @@ export class Interface {
 	}
 
 	setMapText(mapIndex) {
-		const { title, message } = mapText[mapIndex];
+		const { title, message } = maps[mapIndex];
 		this.elements.title.textContent = title;
 		this.elements.message.textContent = message;
 	}

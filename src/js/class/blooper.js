@@ -12,8 +12,6 @@ _freeverb.dampening.value = 1000;
 
 const _noteTriggerDelay = glob.preschedule_ms / 1000;
 
-// const _getDelay = (timeDelta) => `+${(glob.preschedule_ms - timeDelta) / 1000} `;
-
 const _defaultScale = [
 	'A4', 'B4', 'C4', 'D4', 'E4', 'F#4', 'G4',
 	'A5', 'B5', 'C5', 'D5', 'E5', 'F#5', 'G5',
@@ -55,7 +53,7 @@ const _ringSettings = {
 	}
 };
 export class Blooper {
-	constructor(initialTuneIdx) {
+	constructor(initialTune) {
 		this.beep = new PolySynth(6, Synth, _beepSettings).connect(beepCompressor);
 		this.pad = new PolySynth(8, Synth, _padSettings).connect(_tremolo2);
 		this.ring = new PolySynth(12, Synth, _ringSettings).connect(_tremolo);
@@ -74,7 +72,7 @@ export class Blooper {
 			length: 1
 		};
 
-		this.loadTune(initialTuneIdx);
+		this.loadTune(initialTune);
 	}
 
 	updateChordChange(beatNumber) {
@@ -158,13 +156,7 @@ export class Blooper {
 		}
 	}
 
-	loadTune(tuneIndex) {
-		let tune;
-		if (tuneIndex === undefined || !tunes[tuneIndex]) {
-			const pick = Math.floor(Math.random() * tunes.length);
-			tune = tunes[pick];
-		} else
-			tune = tunes[tuneIndex];
+	loadTune(tune) {
 		const { changes, scale } = tune;
 		this.clear();
 		this.scale = scale;

@@ -1,3 +1,4 @@
+import { Tune } from './tune';
 
 export type HexType = 'normal' | 'buffer';
 
@@ -26,8 +27,10 @@ export type winType = 'all' | 'buffers' | 'sources';
 
 export interface MapDef {
     winType: winType;
-    hint?: string;
+    title: string;
+    message?: string;
     hexes: HexDef[];
+    tune: Tune;
 }
 
 export type HexCoordinateSpace = HexLocation[][];

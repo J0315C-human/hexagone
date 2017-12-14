@@ -1,4 +1,5 @@
 import glob from '../globals';
+import tunes from '../tunes';
 
 const _randomBufferRatio = 0.4;
 const _randomFillRatio = 0.4;
@@ -51,7 +52,7 @@ export const getRandomHexDef = (i, j, bufferRatio = _randomBufferRatio) => {
 	return hex;
 };
 
-export const randomMap = (fillRatio = _randomFillRatio, bufferRatio = _randomBufferRatio) => {
+const randomHexMap = (fillRatio, bufferRatio) => {
 	const rMap = [];
 	glob.hexspace.forEach((n, i) => {
 		n.forEach((m, j) => {
@@ -62,3 +63,15 @@ export const randomMap = (fillRatio = _randomFillRatio, bufferRatio = _randomBuf
 	});
 	return rMap;
 };
+
+export const randomMap = (fillRatio = _randomFillRatio, bufferRatio = _randomBufferRatio) => {
+
+	const tuneIdx = Math.floor(Math.random() * tunes.length);
+	return {
+		title: 'random Map',
+		message: 'this text also shouldn\'t be visible',
+		winType: 'all',
+		hexes: randomHexMap(fillRatio, bufferRatio),
+		tune: tunes[tuneIdx]
+	}
+}

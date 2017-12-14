@@ -7,7 +7,7 @@ import autoBind from '../utils/autobind';
 export class Hexes {
 	constructor(mapDef, animateIn = true, boardData) {
 		autoBind(this);
-		
+
 		this.boardData = boardData;
 		//create Hex objects
 		this.hexes = [];
@@ -52,7 +52,7 @@ export class Hexes {
 
 	// update one hexes mouse handlers
 	updateMouseEvents(hexIdx) {
-		if (hexIdx !== undefined){
+		if (hexIdx !== undefined) {
 			hexUtils.updateMouseEvents(this.hexes[hexIdx], this.boardData, hexIdx);
 		}
 	}
@@ -104,7 +104,7 @@ export class Hexes {
 			case 'all': {
 				for (let h of hexes) {
 					if (!h.dead)
-						return false;	
+						return false;
 				}
 				break;
 			}
@@ -115,7 +115,8 @@ export class Hexes {
 				}
 				break;
 			}
-			default: { // check if only the reds are dead
+			case 'sources':
+			default: { // check if only the source hexes are dead
 				for (let h of hexes) {
 					if (h.type !== 'buffer' & !h.dead)
 						return false;
