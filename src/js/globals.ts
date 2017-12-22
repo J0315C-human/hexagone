@@ -36,6 +36,7 @@ const glob = {
   // (worse percieved responsiveness for better animation and audio performance)
   paused: true,
   interfaceVisible: false,
+  secretButtonsVisible: false,
   layers: {
     'interaction': '5',
     'focus': '4',

@@ -57,16 +57,29 @@ export class Board {
 		if (idx !== null && glob.buildmode === true) {
 			handleBuildKey(e, this.hexes.get(idx), this.data, idx);
 		}
-		if (glob.buildmode && e.shiftKey) {
-			switch (e.keyCode) {
-				case 78:
-					this.addRandomHex();
-					break;
-				case 68:
-					if (idx !== null) {
-						this.hexes.get(idx).die();
+		if (e.shiftKey) {
+
+			if (glob.buildmode) {
+				switch (e.keyCode) {
+					case 78:
+						this.addRandomHex();
+						break;
+					case 68:
+						if (idx !== null) {
+							this.hexes.get(idx).die();
+						}
+						break;
+				}
+			} else {
+				// 'Shift+P' : show/hide secret UI buttons
+				if (e.keyCode === 80) {
+					const elements = document.getElementsByClassName('secretBtn');
+					const visibility = glob.secretButtonsVisible ? 'hidden' : 'visible';
+					for (let i = 0; i < elements.length; i++) {
+						elements.item(i).style.visibility = visibility;
 					}
-					break;
+					glob.secretButtonsVisible = !glob.secretButtonsVisible;
+				}
 			}
 		}
 	}

@@ -16,6 +16,10 @@ body {
   font-weight: 400;
 }
 
+.secretBtn {
+  visibility: hidden;
+}
+
 .gameBtn:hover {
   cursor: pointer;
   background-color: #fff;
