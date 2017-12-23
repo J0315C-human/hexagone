@@ -181,8 +181,6 @@ export class Hex {
 			hexDef.frozen = true;
 		if (this.type === 'buffer')
 			hexDef.dir = this.directions;
-		console.log("hexdef from hex:");
-		console.log(hexDef);
 		return hexDef;
 	}
 }

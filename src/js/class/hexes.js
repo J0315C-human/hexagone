@@ -3,6 +3,7 @@ import glob from '../globals';
 import { Hex } from './hex';
 import hexUtils from '../utils/hexUtils';
 import autoBind from '../utils/autobind';
+import { timingSafeEqual } from 'crypto';
 
 export class Hexes {
 	constructor(mapDef, animateIn = true, boardData) {
@@ -107,14 +108,14 @@ export class Hexes {
 			case 'normals':
 				counts = h => !h.type;
 				break;
-			case 'buffers': 
+			case 'buffers':
 				counts = h => h.type === 'buffer';
 				break;
 			case 'patterns':
 				counts = h => h.type === 'pattern';
 				break;
 			case 'buffers+patterns':
-				counts = h => (h.type === 'pattern' ||  h.type === 'buffer');
+				counts = h => (h.type === 'pattern' || h.type === 'buffer');
 				break;
 			case 'unfrozen':
 				counts = h => !h.frozen;
@@ -134,7 +135,7 @@ export class Hexes {
 		// 		}
 		// 		break;
 		// 	}
-			// case 'buffers': {
+		// case 'buffers': {
 		// 		for (let h of hexes) {
 		// 			if (h.type === 'buffer' && !h.dead)
 		// 				return false;
@@ -161,14 +162,17 @@ export class Hexes {
 	// logging for build mode - produce a pasteable list of hexes
 	log() {
 		const output = this.hexes.map(h => {
-			if (h.dead) return '';
-			const frozen = h.frozen? ', frozen: true' : '';
-			return h.type === 'buffer' ?
-				`{ i: ${h.loc.i}, j: ${h.loc.j}, timing: { delay: ${h.timing.delay} }, type: 'buffer', dir: [${h.directions}]${frozen}},\n`
-				:
-				`{ i: ${h.loc.i}, j: ${h.loc.j}, timing: { interval: ${h.timing.interval}, delay: ${h.timing.delay} }${frozen}},\n`;
-		}
-		);
-		console.log(output.join(''));
+			return JSON.stringify(h.getHexDef())
+				.replace('"i"', 'i')
+				.replace('"j"', 'j')
+				.replace('"timing"', 'timing')
+				.replace('"frozen"', 'frozen')
+				.replace('"delay"', 'delay')
+				.replace('"dir"', 'dir')
+				.replace('"interval"', 'interval')
+				.replace('"type"', 'type')
+				.replace('"pattern"', 'pattern');
+		});
+		console.log(output.join(',\n'));
 	}
 }
