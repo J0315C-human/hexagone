@@ -6,6 +6,7 @@ import glob from '../globals';
 export class Interface {
 	constructor(controller) {
 		this.elements = {
+			play: document.getElementById('play'),
 			title: document.getElementById('interface-title'),
 			message: document.getElementById('interface-msg'),
 			buttons: document.getElementById('interface-btns'),
@@ -66,12 +67,14 @@ export class Interface {
 			this.addButton('restart', () => {
 				this.ctrl.load(-1, false);
 				animate.interfaceOut();
+				this.showPlaybtn();
 				setTimeout(this.ctrl.togglePlayPause, 2000);
 			});
 		else
 			this.addButton('retry', () => {
 				this.ctrl.load(undefined, false);
 				animate.interfaceOut();
+				this.showPlaybtn();
 				setTimeout(this.ctrl.togglePlayPause, 2000);
 			});
 
@@ -86,6 +89,7 @@ export class Interface {
 			if (modeIsarcade) {
 				this.ctrl.load(-1, false);
 				animate.interfaceOut();
+				this.showPlaybtn();
 				setTimeout(() => {
 					this.setPause();
 					this.ctrl.togglePlayPause();
@@ -120,6 +124,7 @@ export class Interface {
 		this.clearButtons();
 		this.addButton('begin', () => {
 			animate.interfaceOut();
+			this.showPlaybtn();
 			setTimeout(this.setPause, 1000);
 			setTimeout(this.ctrl.togglePlayPause, 500);
 		});
@@ -129,4 +134,13 @@ export class Interface {
 		this.elements.buttons.innerHTML = '';
 	}
 
+	hidePlayBtn() {
+		this.elements.play.classList.remove('playVisible');
+		this.elements.play.classList.add('playHidden');
+	}
+
+	showPlaybtn() {
+		this.elements.play.classList.remove('playHidden');
+		this.elements.play.classList.add('playVisible');
+	}
 }

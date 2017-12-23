@@ -4,14 +4,14 @@ body {
 }
 
 .gameBtn {
-  width: 160px;
+  width: 210px;
   height: 50px;
   background-color: #ccced6;
   color: #595c6e;
   margin: 5px;
-  border-radius: 10px;
+  border-radius: 25px;
   line-height: 45px;
-  font-size: 30px;
+  font-size: 37px;
   text-align: center;
   font-family: "Quantico", sans-serif;
   font-weight: 400;
@@ -21,11 +21,25 @@ body {
   visibility: hidden;
 }
 
+#play {
+  transition: opacity 1s;
+}
+
+.playHidden {
+  opacity: 0;
+}
+
+.playVisible {
+  opacity: 1;
+}
+
 .gameBtn:hover {
   cursor: pointer;
   background-color: #fff;
 }
-
+.playHidden:hover {
+  cursor: default;
+}
 .gameBtn:active {
   -webkit-transform: scale(0.95);
   transform: scale(0.95);

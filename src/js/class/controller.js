@@ -14,12 +14,15 @@ export class Controller {
 		this.interface = new Interface(this);
 		this.buttons = {
 			play: document.getElementById('play'),
+			next: document.getElementById('prev'),
 			next: document.getElementById('next'),
-			mapRand: document.getElementById('lr'),
-			build: document.getElementById('lb'),
 			log: document.getElementById('log'),
 		};
 
+		this.buttons.play.style.visibility = 'hidden';
+		setTimeout(() => {
+			this.buttons.play.style.visibility = 'visible';
+		}, 3000);
 		autoBind(this);
 		this.setEventListeners();
 		this.demoRunning = false;
@@ -30,7 +33,7 @@ export class Controller {
 
 	// check if stage is cleared and put up 'you win' menu
 	checkWin() {
-		const winType = glob.gameMode === 'arcade'? 'all' : undefined;
+		const winType = glob.gameMode === 'arcade' ? 'all' : undefined;
 		if (!glob.paused && !this.demoRunning && this.game.checkWin(winType)) {
 			setTimeout(() => {
 				this.interface.setWin();
@@ -64,11 +67,14 @@ export class Controller {
 
 	play(withInterface = false) {
 		if (this.game.isLoading()) return;
-		if (withInterface)
+		if (withInterface) {
 			animate.interfaceIn();
+			this.interface.hidePlayBtn();
+		}
 		else {
 			this.demoRunning = false;
 			animate.interfaceOut();
+			this.interface.showPlaybtn();
 			this.buttons.play.textContent = 'pause';
 			this.checkWinTimeout = this.checkWin();
 		}
@@ -82,9 +88,12 @@ export class Controller {
 		glob.paused = true;
 		if (pauseAnimations)
 			animate.pauseAll();
-		this.buttons.play.textContent = 'play';
-		if (showInterface)
+		if (glob.buildmode)
+			this.buttons.play.textContent = 'play';
+		if (showInterface) {
+			this.interface.hidePlayBtn();
 			animate.interfaceIn();
+		}
 		this.scheduler.pause();
 		// console.dir(this.game.board.hexes.filter(h => !h.dead));
 	}
@@ -102,6 +111,12 @@ export class Controller {
 		this.scheduler.reset();
 	}
 
+	prevMap() {
+		const { mapIndex } = this.game;
+		const newIdx = mapIndex ? mapIndex - 1 : maps.length - 1;
+		this.load(newIdx);
+	}
+
 	nextMap() {
 		const newIdx = (this.game.mapIndex + 1) % maps.length;
 		this.load(newIdx);
@@ -114,33 +129,20 @@ export class Controller {
 	retry() {
 		this.reloadSameMap();
 		animate.interfaceOut();
+		this.interface.showPlaybtn();
 		setTimeout(this.togglePlayPause, 2000);
 	}
 
 	setEventListeners() {
-		const { play, next, mapRand, build, log } = this.buttons;
+		const { play, next, log } = this.buttons;
 
-		play.addEventListener('click', this.togglePlayPause);
+		play.addEventListener('click', () => {
+			if (glob.buildmode || !glob.paused
+				|| !glob.interfaceVisible)
+				this.togglePlayPause();
+		});
+		prev.addEventListener('click', this.prevMap);
 		next.addEventListener('click', this.nextMap);
-		mapRand.addEventListener('click', () => {
-			this.load(-1);
-		});
-
-		// turn on build mode
-		build.addEventListener('click', () => {
-
-			if (!glob.buildmode) {
-				document.getElementById('board').style.border = '10px solid limegreen';
-				document.getElementById('board').style.margin = '0px';
-
-				glob.buildmode = true;
-			} else {
-				document.getElementById('board').style.border = 'none';
-				document.getElementById('board').style.margin = '10px';
-
-				glob.buildmode = false;
-			}
-		});
 		log.addEventListener('click', () => {
 			this.game.log();
 		});

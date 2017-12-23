@@ -76,7 +76,8 @@ export class Game {
 		}, loadMapTimeout);
 		setTimeout(() => {
 			this.mapIsLoading = false;
-			playButtonElement.textContent = 'play';
+			if (glob.buildmode)
+				playButtonElement.textContent = 'play';
 		}, enablePlayTimeout);
 	}
 

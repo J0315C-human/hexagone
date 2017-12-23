@@ -6,7 +6,6 @@ const medium1: MapDef = {
   message: 'objective: clear all red blocks\nhint: some blocks can\'t be moved',
   winType: 'normals',
   hexes: [
-    { i: 1, j: 0, timing: { pattern: 'x.x...' }, type: 'pattern' },
     { i: 2, j: 3, timing: { interval: 5, delay: 1 }, frozen: true },
     { i: 3, j: 3, timing: { delay: 3 }, type: 'buffer', dir: [4] },
     { i: 3, j: 4, timing: { delay: 3 }, type: 'buffer', dir: [5], frozen: true },

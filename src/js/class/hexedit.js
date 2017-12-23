@@ -174,6 +174,7 @@ class HexEdit {
           interval: h.timing.delay || 3,
           delay: 0
         };
+        h.dir = undefined;
         h.type = undefined;
     }
     this.hexReplace();

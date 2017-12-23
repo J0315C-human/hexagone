@@ -8,7 +8,8 @@ export const handleBuildKey = (e, hex, boardData, hexIdx) => {
 	} else {
 		alterHexTiming(e.keyCode, hex);
 	}
-	hexUtils.updateMouseEvents(hex, boardData, hexIdx);
+	if (!hex.dead)
+		hexUtils.updateMouseEvents(hex, boardData, hexIdx);
 };
 
 

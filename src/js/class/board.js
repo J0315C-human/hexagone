@@ -66,19 +66,32 @@ export class Board {
 						break;
 					case 68:
 						if (idx !== null) {
-							this.hexes.get(idx).die();
+							const hex = this.hexes.get(idx);
+							if (hex) hex.die();
+							this.data.isDragging = false;
+							this.data.curHexIdx = null;
 						}
 						break;
 				}
-			} else {
-				// 'Shift+P' : show/hide secret UI buttons
-				if (e.keyCode === 80) {
-					const elements = document.getElementsByClassName('secretBtn');
-					const visibility = glob.secretButtonsVisible ? 'hidden' : 'visible';
-					for (let i = 0; i < elements.length; i++) {
-						elements.item(i).style.visibility = visibility;
-					}
-					glob.secretButtonsVisible = !glob.secretButtonsVisible;
+			}
+			// 'Shift+P' : show/hide secret UI buttons and toggle Build Mode
+			if (e.keyCode === 80) {
+				const elements = document.getElementsByClassName('secretBtn');
+				const visibility = glob.buildmode ? 'hidden' : 'visible';
+				for (let i = 0; i < elements.length; i++) {
+					elements.item(i).style.visibility = visibility;
+				}
+				if (!glob.buildmode) {
+					document.getElementById('board').style.border = '10px solid limegreen';
+					document.getElementById('board').style.margin = '0px';
+					document.getElementById('play').classList.remove('playHidden');
+					document.getElementById('play').classList.add('playVisible');
+					animate.interfaceOut();
+					glob.buildmode = true;
+				} else {
+					document.getElementById('board').style.border = 'none';
+					document.getElementById('board').style.margin = '10px';
+					glob.buildmode = false;
 				}
 			}
 		}

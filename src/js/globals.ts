@@ -11,7 +11,7 @@ const glob = {
   hex_w: 155,	// main hex dimensions
   hex_h: 135,
   scale: 0.5, // scale the whole thing
-  animationScale: 0.01,
+  animationScale: 0.3,
   area_w_offset: 10,
   area_h_offset: -5,
   hex_x_offset: 28,  // draw offsets
@@ -37,7 +37,6 @@ const glob = {
   // (worse percieved responsiveness for better animation and audio performance)
   paused: true,
   interfaceVisible: false,
-  secretButtonsVisible: false,
   layers: {
     'interaction': '5',
     'focus': '4',
@@ -87,7 +86,6 @@ glob.bg_h = glob.hex_h * (glob.n_rows + 0.5) + glob.area_h_offset;
 glob.elements.game.style.transform = `scale(${glob.scale})`;
 glob.elements.container.style.height = `${(glob.bg_h + 64) * glob.scale}px`;
 glob.elements.container.style.width = `${(glob.bg_w) * glob.scale}px`;
-
 // set background element style
 glob.elements.board.style.width = `${glob.bg_w}px`;
 glob.elements.board.style.height = `${glob.bg_h}px`;
