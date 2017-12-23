@@ -1,5 +1,6 @@
 body {
   background-color: #525151;
+  font-family: sans-serif;
 }
 
 .gameBtn {
@@ -160,3 +161,35 @@ body {
 .interface-btn:hover {
   cursor: pointer;
 }
+
+#hexedit {
+  display: none;
+  flex-flow: column nowrap;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 320px;
+  background-color: #99A;
+  border-radius: 5px;
+  border: 1px solid black;
+}
+
+.hexeditlabel {
+  width: 45%;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.hexedititem {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  margin: 7px 15px;
+  width: 90%;
+}
+
+.hexeditinput {
+  width: 55%;
+}
+
+

@@ -41,11 +41,13 @@ export class Hex {
 		this.loc = null;
 	}
 
-	replaceWith(hexObj) {
-		hexObj.i = this.loc.i;
-		hexObj.j = this.loc.j;
-		const newHex = createHexParams(hexObj);
+	replaceWith(hexDef) {
+		hexDef.i = this.loc.i;
+		hexDef.j = this.loc.j;
+		const newHex = createHexParams(hexDef);
 		this.clearElements();
+		this.frozen = undefined;
+		this.directions = undefined;
 		Object.keys(newHex).forEach(key => {
 			this[key] = newHex[key];
 		});
@@ -164,4 +166,23 @@ export class Hex {
 		}
 	}
 
+	// get a basic object representation (for use with hexEditor)
+	getHexDef() {
+		const hexDef = {
+			i: this.loc.i,
+			j: this.loc.j,
+			timing: {
+				...this.timing
+			}
+		}
+		if (this.type)
+			hexDef.type = this.type;
+		if (this.frozen)
+			hexDef.frozen = true;
+		if (this.type === 'buffer')
+			hexDef.dir = this.directions;
+		console.log("hexdef from hex:");
+		console.log(hexDef);
+		return hexDef;
+	}
 }

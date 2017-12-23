@@ -10,5 +10,6 @@
     "tslint.autoFixOnSave": true,
     "tslint.exclude": "**/node_modules/**/*",
     "editor.insertSpaces": true,
-    "editor.tabSize": 2
+    "editor.tabSize": 2,
+    "eslint.autoFixOnSave": true
 }

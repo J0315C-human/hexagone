@@ -6,6 +6,7 @@ import { Hex } from './hex';
 import { Hexes } from './hexes';
 import { Targets } from './targets';
 import { handleBuildKey } from '../utils/buildUtils';
+import hexEditor from './hexedit'
 
 const _capacity = glob.n_rows * glob.n_cols;
 
@@ -16,7 +17,6 @@ export class Board {
 			dragStart: null, // position where mouse drag started
 			curHexIdx: null, // which hex is being interacted with (or has the cursor over it)
 		};
-
 		this.targets = new Targets();
 		this.hexes = new Hexes(mapDef, true, this.data);
 		this.targets.initializeHexes(this.hexes);
@@ -150,6 +150,15 @@ export class Board {
 			this.hexes.get(d.curHexIdx).moveBy(xd, yd);
 		}
 	}
+	// a hex is shift-clicked in build mode to edit
+	onHexEdit(x, y) {
+		let { curHexIdx } = this.data;
+		if (curHexIdx !== null && !this.hexes.get(curHexIdx).dead) {
+			hexEditor.show(x + 50, y);
+			hexEditor.setHex(this.hexes.get(curHexIdx));
+			hexEditor.setHexBoardData(this.data, curHexIdx);
+		}
+	}
 
 	releaseHex() {
 		const d = this.data;
@@ -163,7 +172,11 @@ export class Board {
 	}
 
 	onMouseDown(e) {
-		this.onHexPickup(e.x, e.y);
+		if (glob.buildmode && e.shiftKey) {
+			this.onHexEdit(e.x, e.y);
+		} else {
+			this.onHexPickup(e.x, e.y);
+		}
 	}
 	onTouchStart(e) {
 		const touch = e.touches[0];

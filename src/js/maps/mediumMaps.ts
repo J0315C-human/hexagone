@@ -6,6 +6,7 @@ const medium1: MapDef = {
   message: 'objective: clear all red blocks\nhint: some blocks can\'t be moved',
   winType: 'normals',
   hexes: [
+    { i: 1, j: 0, timing: { pattern: 'x.x...' }, type: 'pattern' },
     { i: 2, j: 3, timing: { interval: 5, delay: 1 }, frozen: true },
     { i: 3, j: 3, timing: { delay: 3 }, type: 'buffer', dir: [4] },
     { i: 3, j: 4, timing: { delay: 3 }, type: 'buffer', dir: [5], frozen: true },
@@ -88,8 +89,8 @@ const medium6: MapDef = {
   message: 'objective: clear all blocks',
   winType: 'sources',
   hexes: [
-    { i: 1, j: 2, timing: { delay: 0, pattern: 'x.x...' }, type: 'pattern' },
-    { i: 1, j: 4, timing: { delay: 0, pattern: '...x.x' }, type: 'pattern' },
+    { i: 1, j: 2, timing: { pattern: 'x.x...' }, type: 'pattern' },
+    { i: 1, j: 4, timing: { pattern: '...x.x' }, type: 'pattern' },
     { i: 2, j: 3, timing: { interval: 4, delay: 2 } },
     { i: 5, j: 3, timing: { interval: 6, delay: 5 } },
   ],

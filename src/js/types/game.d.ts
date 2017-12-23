@@ -16,7 +16,7 @@ export interface HexDef {
     i: number;
     j: number;
     timing: {
-        delay: number;
+        delay?: number;
         interval?: number;
         pattern?: string;
     };

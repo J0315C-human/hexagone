@@ -11,7 +11,7 @@ const glob = {
   hex_w: 155,	// main hex dimensions
   hex_h: 135,
   scale: 0.5, // scale the whole thing
-  animationScale: 1,
+  animationScale: 0.01,
   area_w_offset: 10,
   area_h_offset: -5,
   hex_x_offset: 28,  // draw offsets
@@ -25,6 +25,7 @@ const glob = {
     game: document.getElementById('game'),
     board: document.getElementById('board'),
     interface: document.getElementById('interface'),
+    hexedit: document.getElementById('hexedit'),
   },
   hexspace: [],
   bg_w: 0,	// bg container vars (they are set below)
