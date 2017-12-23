@@ -71,19 +71,20 @@ const setMouseEventsAll = (hexes, data) => {
 
 const _selectHex = (hex, data, index) => {
 	if (data.curHexIdx === null && !hex.dead) {
+		if (!glob.buildmode && hex.frozen) return;
 		data.curHexIdx = index;
 	}
 };
 
 const _deselectHex = (hex, data, index) => {
 	if (!data.isDragging & data.curHexIdx === index) {
+		if (!glob.buildmode && hex.frozen) return;
 		data.curHexIdx = null;
 		data.dragStart = null;
 	}
 };
 
 const updateMouseEvents = (hex, data, index) => {
-	if (hex.frozen) return;
 	hex.elements.el.onmouseenter = () => _selectHex(hex, data, index);
 	hex.elements.el.ontouchstart = () => _selectHex(hex, data, index);
 
