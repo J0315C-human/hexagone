@@ -4,7 +4,7 @@ const glob = {
   // debug mode - clicking hexes prints out their info
   debug: false,
   buildmode: false,
-  gameMode: 'journey',
+  gameMode: 'puzzle',
   n_rows: 7, // i or y
   n_cols: 7, // j or x
   first_dir: 'left', // which direction the second row is offset from the first

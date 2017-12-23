@@ -1,6 +1,6 @@
 import { Tune } from './tune';
 
-export type HexType = 'normal' | 'buffer';
+export type HexType = 'normal' | 'buffer' | 'pattern';
 
 export interface HexLocation {
     i: number;
@@ -18,12 +18,14 @@ export interface HexDef {
     timing: {
         delay: number;
         interval?: number;
+        pattern?: string;
     };
     type?: HexType;
     dir?: number[] | number;
+    frozen?: boolean;
 }
 
-export type winType = 'all' | 'buffers' | 'sources';
+export type winType = 'all' | 'buffers' | 'sources' | 'frozen' | 'unfrozen' | 'buffers+patterns' | 'patterns' | 'normals';
 
 export interface MapDef {
     winType: winType;

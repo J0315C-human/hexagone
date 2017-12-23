@@ -102,8 +102,8 @@ export class Interface {
 
 	addSwitchModeButton() {
 		if (glob.gameMode === 'arcade') {
-			this.addButton('journey mode', () => {
-				glob.gameMode = 'journey';
+			this.addButton('puzzle mode', () => {
+				glob.gameMode = 'puzzle';
 				this.ctrl.load(1);
 			});
 		} else {

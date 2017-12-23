@@ -3,18 +3,19 @@ import tunes from '../tunes';
 
 const medium1: MapDef = {
   title: 'medium #1',
-  message: 'objective: clear all red blocks',
-  winType: 'sources',
+  message: 'objective: clear all red blocks\nhint: some blocks can\'t be moved',
+  winType: 'normals',
   hexes: [
-    { i: 3, j: 1, timing: { interval: 5, delay: 0 } },
-    { i: 1, j: 3, timing: { interval: 5, delay: 1 } },
-    { i: 2, j: 5, timing: { interval: 5, delay: 2 } },
+    { i: 2, j: 3, timing: { interval: 5, delay: 1 }, frozen: true },
     { i: 3, j: 3, timing: { delay: 3 }, type: 'buffer', dir: [4] },
-    { i: 3, j: 4, timing: { delay: 3 }, type: 'buffer', dir: [5] },
-    { i: 4, j: 2, timing: { delay: 3 }, type: 'buffer', dir: [3] },
+    { i: 3, j: 4, timing: { delay: 3 }, type: 'buffer', dir: [5], frozen: true },
+    { i: 4, j: 2, timing: { delay: 3 }, type: 'buffer', dir: [3], frozen: true },
+    { i: 4, j: 3, timing: { interval: 5, delay: 0 } },
     { i: 4, j: 4, timing: { delay: 3 }, type: 'buffer', dir: [0] },
+    { i: 5, j: 2, timing: { interval: 5, delay: 3 }, frozen: true },
     { i: 5, j: 3, timing: { delay: 3 }, type: 'buffer', dir: [2] },
-    { i: 5, j: 4, timing: { delay: 3 }, type: 'buffer', dir: [1] }
+    { i: 5, j: 4, timing: { delay: 3 }, type: 'buffer', dir: [1], frozen: true },
+    { i: 5, j: 5, timing: { interval: 5, delay: 2 }, frozen: true },
   ],
   tune: tunes[6]
 };
@@ -38,18 +39,18 @@ const medium3: MapDef = {
   message: 'objective: clear all red blocks',
   winType: 'sources',
   hexes: [
-    { i: 1, j: 6, timing: { delay: 2 }, type: 'buffer', dir: [1] },
-    { i: 6, j: 0, timing: { delay: 3 }, type: 'buffer', dir: [1] },
-    { i: 2, j: 3, timing: { interval: 6, delay: 0 } },
-    { i: 2, j: 4, timing: { delay: 2 }, type: 'buffer', dir: [5] },
     { i: 0, j: 6, timing: { interval: 6, delay: 1 } },
-    { i: 4, j: 6, timing: { interval: 6, delay: 2 } },
-    { i: 3, j: 6, timing: { delay: 2 }, type: 'buffer', dir: [3] },
-    { i: 3, j: 1, timing: { interval: 4, delay: 0 } },
+    { i: 1, j: 6, timing: { delay: 2 }, type: 'buffer', dir: [1], frozen: true },
     { i: 2, j: 0, timing: { delay: 3 }, type: 'buffer', dir: [3] },
-    { i: 5, j: 1, timing: { interval: 4, delay: 2 } },
+    { i: 2, j: 3, timing: { interval: 6, delay: 0 } },
+    { i: 2, j: 4, timing: { delay: 2 }, type: 'buffer', dir: [5], frozen: true },
+    { i: 3, j: 1, timing: { interval: 4, delay: 0 }, frozen: true },
+    { i: 3, j: 6, timing: { delay: 2 }, type: 'buffer', dir: [3], frozen: true },
+    { i: 4, j: 2, timing: { interval: 4, delay: 1 }, frozen: true },
     { i: 4, j: 3, timing: { delay: 3 }, type: 'buffer', dir: [5] },
-    { i: 4, j: 2, timing: { interval: 4, delay: 1 } }
+    { i: 4, j: 6, timing: { interval: 6, delay: 2 } },
+    { i: 5, j: 1, timing: { interval: 4, delay: 2 }, frozen: true },
+    { i: 6, j: 0, timing: { delay: 3 }, type: 'buffer', dir: [1] },
   ],
   tune: tunes[6]
 };
@@ -59,10 +60,9 @@ const medium4: MapDef = {
   message: 'objective: clear all red blocks',
   winType: 'sources',
   hexes: [
-    { i: 1, j: 2, timing: { interval: 7, delay: 1 } },
-    { i: 1, j: 5, timing: { delay: 1 }, type: 'buffer', dir: [0] },
-    { i: 3, j: 4, timing: { delay: 1 }, type: 'buffer', dir: [1] },
-    { i: 5, j: 3, timing: { delay: 1 }, type: 'buffer', dir: [0] },
+    { i: 3, j: 2, timing: { interval: 7, delay: 1 }, frozen: true },
+    { i: 3, j: 3, timing: { delay: 4 }, type: 'buffer', dir: [5] },
+    { i: 3, j: 4, timing: { delay: 4 }, type: 'buffer', dir: [5], frozen: true },
   ],
   tune: tunes[6]
 };
@@ -73,11 +73,11 @@ const medium5: MapDef = {
   winType: 'all',
   hexes: [
     { i: 1, j: 4, timing: { delay: 3 }, type: 'buffer', dir: [5] },
-    { i: 1, j: 2, timing: { interval: 5, delay: 2 } },
+    { i: 1, j: 2, timing: { interval: 5, delay: 2 }, frozen: true },
     { i: 5, j: 4, timing: { delay: 1 }, type: 'buffer', dir: [5] },
     { i: 3, j: 2, timing: { delay: 4 }, type: 'buffer', dir: [2] },
-    { i: 3, j: 4, timing: { interval: 4, delay: 2 } },
-    { i: 5, j: 2, timing: { interval: 3, delay: 0 } },
+    { i: 3, j: 4, timing: { interval: 4, delay: 2 }, frozen: true },
+    { i: 5, j: 2, timing: { interval: 3, delay: 0 }, frozen: true },
   ],
   tune: tunes[6]
 };
@@ -88,8 +88,10 @@ const medium6: MapDef = {
   message: 'objective: clear all blocks',
   winType: 'sources',
   hexes: [
-    { i: 2, j: 3, timing: { interval: 6, delay: 2 } },
-    { i: 1, j: 5, timing: { delay: 2 }, type: 'buffer', dir: [4] }
+    { i: 1, j: 2, timing: { delay: 0, pattern: 'x.x...' }, type: 'pattern' },
+    { i: 1, j: 4, timing: { delay: 0, pattern: '...x.x' }, type: 'pattern' },
+    { i: 2, j: 3, timing: { interval: 4, delay: 2 } },
+    { i: 5, j: 3, timing: { interval: 6, delay: 5 } },
   ],
   tune: tunes[6]
 };

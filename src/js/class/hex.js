@@ -154,6 +154,10 @@ export class Hex {
 		switch (this.type) {
 			case 'buffer':
 				return this.history[0];
+			case 'pattern': {
+				const beat = beatNumber % this.timing.pattern.length;
+				return this.timing.pattern[beat] === 'x';
+			}
 			default: {
 				return (beatNumber - this.timing.delay) % this.timing.interval === 0;
 			}

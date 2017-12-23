@@ -5,6 +5,6 @@ import {sortMapByPosition} from '../utils/mapUtils';
 
 export default [
   demo,
-  ...easyMaps ,
   ...mediumMaps,
+  ...easyMaps ,
 ].map(sortMapByPosition); // .reverse();

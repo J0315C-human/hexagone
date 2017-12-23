@@ -99,30 +99,61 @@ export class Hexes {
 
 	checkWin() {
 		const { hexes } = this;
-
+		let counts;
 		switch (this.winType) {
-			case 'all': {
-				for (let h of hexes) {
-					if (!h.dead)
-						return false;
-				}
+			case 'all':
+				counts = () => true;
 				break;
-			}
-			case 'buffers': {
-				for (let h of hexes) {
-					if (h.type === 'buffer' && !h.dead)
-						return false;
-				}
+			case 'normals':
+				counts = h => !h.type;
 				break;
-			}
+			case 'buffers': 
+				counts = h => h.type === 'buffer';
+				break;
+			case 'patterns':
+				counts = h => h.type === 'pattern';
+				break;
+			case 'buffers+patterns':
+				counts = h => (h.type === 'pattern' ||  h.type === 'buffer');
+				break;
+			case 'unfrozen':
+				counts = h => !h.frozen;
+				break;
+			case 'frozen':
+				counts = h => h.frozen;
+				break;
 			case 'sources':
-			default: { // check if only the source hexes are dead
-				for (let h of hexes) {
-					if (h.type !== 'buffer' & !h.dead)
-						return false;
-				}
-				break;
-			}
+			default: // only 'sources: normal or patterns'
+				counts = h => h.type !== 'buffer';
+		}
+		// switch (this.winType) {
+		// 	case 'all': {
+		// 		for (let h of hexes) {
+		// 			if (!h.dead)
+		// 				return false;
+		// 		}
+		// 		break;
+		// 	}
+			// case 'buffers': {
+		// 		for (let h of hexes) {
+		// 			if (h.type === 'buffer' && !h.dead)
+		// 				return false;
+		// 		}
+		// 		break;
+		// 	}
+		// 	case 'sources':
+		// 	default: { // check if only the source hexes are dead
+		// 		for (let h of hexes) {
+		// 			if (h.type !== 'buffer' & !h.dead)
+		// 				return false;
+		// 		}
+		// 		break;
+		// 	}
+		// }
+		// check all the hexes, see if all the ones that 'count' are dead
+		for (let h of hexes) {
+			if (counts(h) && !h.dead)
+				return false;
 		}
 		return true;
 	}
@@ -131,10 +162,11 @@ export class Hexes {
 	log() {
 		const output = this.hexes.map(h => {
 			if (h.dead) return '';
+			const frozen = h.frozen? ', frozen: true' : '';
 			return h.type === 'buffer' ?
-				`{ i: ${h.loc.i}, j: ${h.loc.j}, timing: { delay: ${h.timing.delay} }, type: 'buffer', dir: [${h.directions}] },\n`
+				`{ i: ${h.loc.i}, j: ${h.loc.j}, timing: { delay: ${h.timing.delay} }, type: 'buffer', dir: [${h.directions}]${frozen}},\n`
 				:
-				`{ i: ${h.loc.i}, j: ${h.loc.j}, timing: { interval: ${h.timing.interval}, delay: ${h.timing.delay} }},\n`;
+				`{ i: ${h.loc.i}, j: ${h.loc.j}, timing: { interval: ${h.timing.interval}, delay: ${h.timing.delay} }${frozen}},\n`;
 		}
 		);
 		console.log(output.join(''));

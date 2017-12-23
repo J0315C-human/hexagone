@@ -4,7 +4,7 @@ import tunes from '../tunes';
 
 const easy1: MapDef = {
   title: 'easy #1',
-  message: 'objective: clear all blocks',
+  message: 'objective: clear all blocks \n hint: click and drag!',
   winType: 'sources',
   hexes: [
     { i: 0, j: 1, timing: { interval: 5, delay: 0 } },
@@ -64,12 +64,12 @@ const easy5: MapDef = {
   message: 'objective: clear all blocks',
   winType: 'sources',
   hexes: [
-    { i: 1, j: 5, timing: { interval: 5, delay: 4 }},
-    { i: 3, j: 5, timing: { interval: 5, delay: 2 }},
-    { i: 1, j: 1, timing: { interval: 3, delay: 2 }},
-    { i: 5, j: 3, timing: { interval: 3, delay: 1 }},
-    { i: 3, j: 1, timing: { interval: 3, delay: 2 }},
-    { i: 3, j: 3, timing: { interval: 2, delay: 1 }},
+    { i: 1, j: 5, timing: { interval: 5, delay: 4 } },
+    { i: 3, j: 5, timing: { interval: 5, delay: 2 } },
+    { i: 1, j: 1, timing: { interval: 3, delay: 2 } },
+    { i: 5, j: 3, timing: { interval: 3, delay: 1 } },
+    { i: 3, j: 1, timing: { interval: 3, delay: 2 } },
+    { i: 3, j: 3, timing: { interval: 2, delay: 1 } },
   ],
   tune: tunes[3]
 };

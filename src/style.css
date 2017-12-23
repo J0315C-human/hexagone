@@ -75,13 +75,19 @@ body {
   fill: #5392a5;
   stroke: #427483;
 }
+.hex-pattern {
+  fill: #9abe3a;
+  stroke: #bdea45;
+}
 .hex-flash {
   fill: #aa6065;
 }
 .hex-flash.hex-buffer {
   fill: #5392a5;
 }
-
+.hex-flash.hex-pattern {
+  fill: #76972f;
+}
 .hex-hl {
   stroke: #4a272a;
 }
@@ -89,7 +95,9 @@ body {
 .hex-hl.hex-buffer {
   stroke: #20383f;
 }
-
+.hex-hl.hex-pattern {
+  stroke: #dbf598;
+}
 #interface {
   position: absolute;
   display: flex;
@@ -120,9 +128,10 @@ body {
 }
 
 #interface-msg {
-  width: 80%;
+  width: 90%;
   text-align: center;
   height: 0;
+  line-height: 80px;
 }
 #interface-btns {
   display: flex;

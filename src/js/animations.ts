@@ -9,11 +9,14 @@ const cols = {
   hex_A_flash: new Color('#aa6065').lighten(0.6).rgb().string(),
   hex_B: '#5392a5',
   hex_B_flash: new Color('#5392a5').lighten(0.6).rgb().string(),
+  hex_C: '#9abe3a',
+  hex_C_flash: new Color('#9abe3a').lighten(0.6).rgb().string(),
 };
 
 const _s: number = glob.animationScale;
 const _flashRuleA = CSSRulePlugin.getRule('.hex-flash');
 const _flashRuleB = CSSRulePlugin.getRule('.hex-flash.hex-buffer');
+const _flashRuleC = CSSRulePlugin.getRule('.hex-flash.hex-pattern');
 
 const _flashLength: number = glob.beat_ms - glob.preschedule_ms;
 const _flashIn: number = (_flashLength * 0.1) / 1000;
@@ -29,7 +32,9 @@ const flashHexes = () => {
   _timeline.to(_flashRuleA, _flashIn, { cssRule: { fill: cols.hex_A_flash }, ease: Linear.easeNone }, t)
     .to(_flashRuleA, _flashOut, { cssRule: { fill: cols.hex_A }, ease: Power1.easeOut }, t + _flashIn)
     .to(_flashRuleB, _flashIn, { cssRule: { fill: cols.hex_B_flash }, ease: Linear.easeNone }, t)
-    .to(_flashRuleB, _flashOut, { cssRule: { fill: cols.hex_B }, ease: Power1.easeOut }, t + _flashIn);
+    .to(_flashRuleB, _flashOut, { cssRule: { fill: cols.hex_B }, ease: Power1.easeOut }, t + _flashIn)
+    .to(_flashRuleC, _flashIn, { cssRule: { fill: cols.hex_C_flash }, ease: Linear.easeNone }, t)
+    .to(_flashRuleC, _flashOut, { cssRule: { fill: cols.hex_C }, ease: Power1.easeOut }, t + _flashIn);
 };
 
 const killHex = (hex, tl = _timeline) => {

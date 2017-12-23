@@ -16,13 +16,23 @@ export const createHexParams = (h) => {
 	const classname = h.type ? `hex-${h.type}` : 'hex';
 	const id = `hex-${_getId()}`;
 
-	const svgParams = {};
+	const svgParams = {
+		frozen: h.frozen
+	};
 	if (h.dir !== undefined)
 		svgParams.arrow = h.dir;
-	if (h.type === 'buffer')
-		svgParams.dots = h.timing.delay;
-	else
-		svgParams.dots = h.timing.interval;
+
+	switch (h.type) {
+		case 'buffer':
+			svgParams.dots = h.timing.delay;
+			break;
+		case 'pattern':
+			svgParams.symbol = '?';
+			break;
+		default:
+			svgParams.dots = h.timing.interval;
+			break;
+	}
 
 	const elements = drawHex(id, classname, svgParams);
 	elements.parent.style.zIndex = glob.layers.main;
@@ -44,7 +54,8 @@ export const createHexParams = (h) => {
 		timing: h.timing,
 		elements: elements,
 	};
-
+	if (h.frozen)
+		params.frozen = true;
 	params.directions = typeof h.dir === 'object' ?
 		h.dir : [h.dir];
 	return params;
@@ -72,7 +83,7 @@ const _deselectHex = (hex, data, index) => {
 };
 
 const updateMouseEvents = (hex, data, index) => {
-
+	if (hex.frozen) return;
 	hex.elements.el.onmouseenter = () => _selectHex(hex, data, index);
 	hex.elements.el.ontouchstart = () => _selectHex(hex, data, index);
 
