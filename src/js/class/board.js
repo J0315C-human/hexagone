@@ -114,7 +114,7 @@ export class Board {
 		if (!loc) return;
 
 		// if there are no 'source' hexes left, create one
-		const bufferRatio = this.checkWin() ? 0 : undefined;
+		const bufferRatio = this.checkWin('normals') ? 0 : undefined;
 		const hexDef = getRandomHexDef(loc.i, loc.j, bufferRatio);
 		const newHex = new Hex(hexDef);
 		const nHexes = this.hexes.length();

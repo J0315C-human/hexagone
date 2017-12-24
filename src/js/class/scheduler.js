@@ -2,9 +2,8 @@ import glob from '../globals';
 import { Transport } from 'Tone';
 import autoBind from '../utils/autobind';
 
-const _minRandInterval = 3;
-const _maxRandInterval = 32;
-
+const _minNewHexTime = 3;
+const _maxNewHexTime = 32;
 export class Scheduler {
 	constructor(game) {
 		this.game = game;
@@ -73,14 +72,13 @@ export class Scheduler {
 
 	updateGame() {
 		this.game.nextBeat(this.beat);
-
 		if (glob.gameMode === 'arcade') {
 			this.sinceLastRandomHex++;
 			// random hex addition if 'arcade mode' is on.
-			if (this.sinceLastRandomHex > _minRandInterval) {
-				if (this.sinceLastRandomHex > _maxRandInterval ||
-					this.game.checkWin() ||
-					Math.random() < ((this.beat + 70) / 3000)) {
+			if (this.sinceLastRandomHex > _minNewHexTime) {
+				if (this.sinceLastRandomHex > _maxNewHexTime ||
+					this.game.checkWin('normals') ||
+					Math.random() < ((this.beat + 20) / 1000)) {
 					this.sinceLastRandomHex = 0;
 					this.game.addRandomHex();
 				}

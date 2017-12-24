@@ -2,8 +2,9 @@ import glob from '../globals';
 import tunes from '../tunes';
 
 const _randomBufferRatio = 0.333;
-const _randomFillRatio = 0.4;
-const _randomFrozenRatio = 0.22;
+const _randomFillRatio = 0.35;
+const _randomFrozenRatio = 0.333;
+const _randomPatternRatio = 0.08;
 export const sortMapByPosition = (mapDef) => {
 	const sorted = [];
 
@@ -52,21 +53,39 @@ export const getRandomHexDef = (i, j, bufferRatio = _randomBufferRatio) => {
 	const hex = {
 		i, j,
 		timing: {
-			delay: Math.floor(Math.random() * interval),
 		},
 	};
 	if (!_getEdge(i, j) && Math.random() < _randomFrozenRatio)
 		hex.frozen = true;
 	if (Math.random() < bufferRatio) {
 		hex.type = 'buffer';
-		hex.timing.delay = hex.timing.delay + 1;
+		hex.timing.delay = Math.floor(Math.random() * 7) + 1;
 		hex.dir = _getArrowDirs();
+	} else if (Math.random() < _randomPatternRatio) {
+		hex.type = 'pattern';
+		hex.timing.pattern = getRandomPattern();
 	} else {
+		hex.timing.delay = Math.floor(Math.random() * interval);
 		hex.timing.interval = interval;
 	}
-
 	return hex;
 };
+
+const getRandomPattern = () => {
+	const nBeats = Math.floor(Math.random() * 5) + 3;
+	const beatChance = 0.333;
+	let pattern = '';
+	let i = nBeats;
+	while (i) {
+		pattern += Math.random() < beatChance ? 'x' : '.';
+		i--;
+	}
+	if (!pattern.includes('x'))
+		pattern += 'x';
+	else if (!pattern.includes('.'))
+		pattern += '.';
+	return pattern;
+}
 
 const randomHexMap = (fillRatio, bufferRatio) => {
 	const rMap = [];
