@@ -1,6 +1,8 @@
 body {
   background-color: #525151;
   font-family: sans-serif;
+  display: flex;
+  justify-content: center;
 }
 
 .gameBtn {

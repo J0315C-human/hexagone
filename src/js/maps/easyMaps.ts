@@ -97,7 +97,7 @@ const easy7: MapDef = {
     { i: 2, j: 3, timing: { delay: 1 }, type: 'buffer', dir: [2] },
     { i: 2, j: 4, timing: { interval: 5, delay: 0 } },
     { i: 4, j: 1, timing: { interval: 5, delay: 3 } },
-    { i: 4, j: 4, timing: { interval: 1, delay: 0 } },
+    { i: 4, j: 4, timing: { interval: 1, delay: 0 }, frozen: true }
   ],
   tune: tunes[4]
 };

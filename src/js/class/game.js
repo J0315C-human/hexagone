@@ -77,6 +77,7 @@ export class Game {
 				playButtonElement.textContent = 'play';
 		}, enablePlayTimeout);
 		glob.score = 0;
+		glob.elements.score.textContent = '0';
 	}
 
 	log() {

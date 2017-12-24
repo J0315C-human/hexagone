@@ -9,9 +9,6 @@ export class Hexes {
 	constructor(mapDef, animateIn = true, boardData) {
 		autoBind(this);
 
-		this.elements = {
-			score: document.getElementById('scoreCount')
-		};
 		this.boardData = boardData;
 		//create Hex objects
 		this.hexes = [];
@@ -58,8 +55,6 @@ export class Hexes {
 
 	killHexes(dieIndexes) {
 		this.scoreTurn();
-
-		console.log(this.scoringGroups);
 		dieIndexes.forEach(n => {
 			this.hexes[n].die();
 		});
@@ -119,7 +114,6 @@ export class Hexes {
 							dieIndexes.push(a);
 							dieNotes.push(h_a.note);
 						}
-						return true; // end iteration early if we already know this hex dies
 					}
 				});
 			// if it's dying, consolidate its neighboring groups
@@ -159,7 +153,7 @@ export class Hexes {
 					glob.score += hex.getPointValue(comboSize);
 				})
 			})
-		this.elements.score.textContent = glob.score;
+		glob.elements.score.textContent = glob.score;
 	}
 	getScoringGroups() {
 		const { hexes } = this;

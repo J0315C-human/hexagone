@@ -12,7 +12,7 @@ const glob = {
   hex_w: 155,	// main hex dimensions
   hex_h: 135,
   scale: 0.5, // scale the whole thing
-  animationScale: 0.3,
+  animationScale: 0.7,
   area_w_offset: 10,
   area_h_offset: -5,
   hex_x_offset: 28,  // draw offsets
@@ -27,6 +27,7 @@ const glob = {
     board: document.getElementById('board'),
     interface: document.getElementById('interface'),
     hexedit: document.getElementById('hexedit'),
+    score: document.getElementById('scoreCount')
   },
   hexspace: [],
   bg_w: 0,	// bg container vars (they are set below)
@@ -74,7 +75,6 @@ const set_bg_offsets = () => {
 };
 
 glob.hexspace = get_hex_space();
-
 // set bg offsets and recalc on viewport resize
 set_bg_offsets();
 window.addEventListener('resize', set_bg_offsets);

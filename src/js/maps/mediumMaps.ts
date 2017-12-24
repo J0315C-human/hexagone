@@ -3,7 +3,7 @@ import tunes from '../tunes';
 
 const medium1: MapDef = {
   title: 'medium #1',
-  message: 'objective: clear all red blocks\nhint: some blocks can\'t be moved',
+  message: 'objective: clear all red blocks (even the frozen ones)',
   winType: 'normals',
   hexes: [
     { i: 2, j: 3, timing: { interval: 5, delay: 1 }, frozen: true },
@@ -88,10 +88,10 @@ const medium6: MapDef = {
   message: 'objective: clear all blocks',
   winType: 'sources',
   hexes: [
-    { i: 1, j: 2, timing: { pattern: 'x.x...' }, type: 'pattern' },
-    { i: 1, j: 4, timing: { pattern: '...x.x' }, type: 'pattern' },
-    { i: 2, j: 3, timing: { interval: 4, delay: 2 } },
-    { i: 5, j: 3, timing: { interval: 6, delay: 5 } },
+    { i: 3, j: 1, timing: { pattern: 'x..xx.' }, type: 'pattern' },
+    { i: 2, j: 4, timing: { pattern: '...x.x' }, type: 'pattern' },
+    { i: 4, j: 2, timing: { interval: 3, delay: 0 } },
+    { i: 3, j: 6, timing: { interval: 6, delay: 4 } }
   ],
   tune: tunes[6]
 };
