@@ -9,6 +9,9 @@ export class Hexes {
 	constructor(mapDef, animateIn = true, boardData) {
 		autoBind(this);
 
+		this.elements = {
+			score: document.getElementById('scoreCount')
+		};
 		this.boardData = boardData;
 		//create Hex objects
 		this.hexes = [];
@@ -23,6 +26,7 @@ export class Hexes {
 		this.dying = [];
 		this.flashingNotes = [];
 		this.dyingNotes = [];
+		this.scoringGroups = undefined;
 
 		this.numLiving = mapDef.hexes.length;
 		this.winType = mapDef.winType;
@@ -53,6 +57,9 @@ export class Hexes {
 	}
 
 	killHexes(dieIndexes) {
+		this.scoreTurn();
+
+		console.log(this.scoringGroups);
 		dieIndexes.forEach(n => {
 			this.hexes[n].die();
 		});
@@ -97,26 +104,72 @@ export class Hexes {
 		// figure out which will die
 		const dieIndexes = [];
 		const dieNotes = [];
+		let g = 1; // counter for groups
 		for (let a = 0; a < hexes.length; a++) {
 			const h_a = hexes[a];
 			const h_a_flash = h_a.flashing;
 			if (h_a_flash && !h_a.dead)
-				h_a.getNeighbors().some((h_b) => {
+				h_a.getNeighbors().forEach((h_b) => {
 					const bothFlash = h_a_flash && h_b.flashing;
 					if (bothFlash && !h_b.dead) {
-						dieIndexes.push(a);
-						dieNotes.push(h_a.note);
+						if (h_b.group) {
+							h_a.addGroup(h_b.group);
+						}
+						if (!dieIndexes.includes(a)) {
+							dieIndexes.push(a);
+							dieNotes.push(h_a.note);
+						}
 						return true; // end iteration early if we already know this hex dies
 					}
 				});
+			// if it's dying, consolidate its neighboring groups
+			if (dieIndexes.includes(a)) {
+				if (h_a.neighborGroups.length === 0) {
+					h_a.group = g++; // form new 'death group'
+				} else if (h_a.neighborGroups.length === 1) {
+					h_a.group = h_a.neighborGroups[0];
+				} else {
+					const firstGroup = h_a.neighborGroups[0];
+					h_a.group = firstGroup;
+					this.consolidateDeathGroups(firstGroup, h_a.neighborGroups);
+				}
+			}
 		}
 		this.numLiving -= dieIndexes.length;
-		this.killHexes(dieIndexes);
-		animate.flash();
 		this.dying = dieIndexes;
 		this.dyingNotes = dieNotes;
+		if (dieIndexes.length > 0)
+			this.killHexes(dieIndexes);
+		animate.flash();
 	}
-
+	// take all members of a set of death groups and join them to another group.
+	consolidateDeathGroups(groupTo, groupsFrom) {
+		const { hexes } = this;
+		hexes.forEach(h => {
+			if (groupsFrom.includes(h.group)) {
+				h.group = groupTo;
+			}
+		});
+	}
+	scoreTurn() {
+		this.getScoringGroups()
+			.forEach(group => {
+				const comboSize = group.length - 1;
+				group.forEach(hex => {
+					glob.score += hex.getPointValue(comboSize);
+				})
+			})
+		this.elements.score.textContent = glob.score;
+	}
+	getScoringGroups() {
+		const { hexes } = this;
+		const groups = [[], [], [], [], [], [], [], [], []];
+		this.dying.forEach(idx => {
+			const h = this.hexes[idx];
+			groups[h.group - 1].push(h);
+		})
+		return groups;
+	}
 	checkWin() {
 		const { hexes } = this;
 		let counts;

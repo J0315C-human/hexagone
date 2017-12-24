@@ -13,15 +13,39 @@ export class Hex {
 		Object.keys(hexObj).forEach(key => {
 			this[key] = hexObj[key];
 		});
-
 		autoBind(this);
-
+		// for calculating scoring
+		this.neighborGroups = [];
+		this.group = undefined;
 		this.flashing = false;
 		this.target = undefined;
 
 		this.createBufferHistory();
 	}
 
+	getPointValue(comboSize) {
+		let points = 0;
+		const { timing: t, type } = this;
+		if (this.frozen)
+			points += 10;
+		switch (type) {
+			case 'buffer':
+				points += t.delay * 10;
+				points -= this.directions.length * 5;
+				points += comboSize * 10;
+				break;
+			case 'pattern':
+				points += t.pattern.length * 15;
+				points -= (t.pattern.match(/x/g) || []).length * 5;
+				points += comboSize * 15;
+				break;
+			case 'normal':
+			default:
+				points += t.interval * 5;
+				points += comboSize * 5;
+		}
+		return points;
+	}
 	createBufferHistory() {
 		if (this.type === 'buffer') {
 			this.history = [];
@@ -30,7 +54,12 @@ export class Hex {
 			}
 		}
 	}
-
+	addGroup(g) {
+		if (!this.neighborGroups.includes(g)) {
+			this.group = g;
+			this.neighborGroups.push(g);
+		}
+	}
 	setTarget(target) {
 		this.target = target;
 		this.loc = target.loc;

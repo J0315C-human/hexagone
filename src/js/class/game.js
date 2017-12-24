@@ -76,6 +76,7 @@ export class Game {
 			if (glob.buildmode)
 				playButtonElement.textContent = 'play';
 		}, enablePlayTimeout);
+		glob.score = 0;
 	}
 
 	log() {

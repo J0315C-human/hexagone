@@ -46,7 +46,7 @@ body {
 }
 
 #game {
-  position: absolute;
+  position: relative;
   top: 0;
   transform-origin: top left;
 }
@@ -176,6 +176,16 @@ body {
   cursor: pointer;
 }
 
+.scoreLabel {
+  position: absolute;
+  left: 155%;
+  width: 58%;
+  top: 27px;
+  font-family: "Quantico", sans-serif;
+  font-weight: 400;
+  color: #8b8d95;
+  font-size: 41px;
+}
 #hexedit {
   display: none;
   flex-flow: column nowrap;

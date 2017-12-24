@@ -5,6 +5,7 @@ const glob = {
   debug: false,
   buildmode: false,
   gameMode: 'puzzle',
+  score: 0,
   n_rows: 7, // i or y
   n_cols: 7, // j or x
   first_dir: 'left', // which direction the second row is offset from the first
