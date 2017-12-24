@@ -27,12 +27,9 @@ export class Game {
 	addRandomHex() {
 		this.board.addRandomHex();
 	}
-	//returns hex index data to schedule sounds
+	//returns hex indexes or notes to schedule sounds
 	getSoundingHexes() {
-		return {
-			flashing: this.board.hexes.flashing,
-			dying: this.board.hexes.dying
-		};
+		return this.board.hexes.getNewNotes();
 	}
 
 	checkWin(type) {

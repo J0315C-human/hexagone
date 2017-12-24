@@ -23,6 +23,7 @@ export interface HexDef {
     type?: HexType;
     dir?: number[] | number;
     frozen?: boolean;
+    note?: string;
 }
 
 export type winType = 'all' | 'buffers' | 'sources' | 'frozen' | 'unfrozen' | 'buffers+patterns' | 'patterns' | 'normals';

@@ -128,7 +128,6 @@ class HexEdit {
   }
 
   hexReplace(){
-    console.log(this.hexDef);
     this.hex.replaceWith(this.hexDef);
     hexUtils.updateMouseEvents(this.hex, this.hexBoardData, this.hexIdx);
     this.setHex(this.hex);

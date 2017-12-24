@@ -95,7 +95,7 @@ export class Controller {
 			animate.interfaceIn();
 		}
 		this.scheduler.pause();
-		// console.dir(this.game.board.hexes.filter(h => !h.dead));
+		// console.dir(this.game.board.hexes.hexes.filter(h => !h.dead));
 	}
 
 	// index of -1: load random map, index of undefined: reload the same

@@ -86,10 +86,13 @@ export class Scheduler {
 				}
 			}
 		}
-		const { flashing, dying } = this.game.getSoundingHexes();
+		const { flashing,
+			flashingNotes,
+			dying,
+			dyingNotes } = this.game.getSoundingHexes();
 
-		this.blooper.addBeeps(flashing);
-		this.blooper.addRings(dying);
+		this.blooper.addBeeps(flashing, flashingNotes);
+		this.blooper.addRings(dying, dyingNotes);
 		this.blooper.updateChordChange(this.beat);
 
 		this.beat += 1;

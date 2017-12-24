@@ -53,11 +53,14 @@ export const createHexParams = (h) => {
 		neighbors: [],
 		timing: h.timing,
 		elements: elements,
+		note: h.note
 	};
+	if (h.note)
+		params.note = h.note;
 	if (h.frozen)
 		params.frozen = true;
-	params.directions = typeof h.dir === 'object' ?
-		h.dir : [h.dir];
+	if (h.dir !== undefined)
+		params.directions = h.dir;
 	return params;
 };
 

@@ -21,10 +21,21 @@ export class Hexes {
 
 		this.flashing = [];
 		this.dying = [];
+		this.flashingNotes = [];
+		this.dyingNotes = [];
 
 		this.numLiving = mapDef.hexes.length;
 		this.winType = mapDef.winType;
 		hexUtils.setMouseEventsAll(this.hexes, this.boardData);
+	}
+
+	getNewNotes() {
+		return {
+			flashing: this.flashing,
+			dying: this.dying,
+			flashingNotes: this.flashingNotes,
+			dyingNote: this.dyingNotes
+		}
 	}
 
 	clear() {
@@ -41,8 +52,8 @@ export class Hexes {
 		hexUtils.updateMouseEvents(newHex, this.boardData, this.hexes.length - 1);
 	}
 
-	killHexes(toDie) {
-		toDie.forEach(n => {
+	killHexes(dieIndexes) {
+		dieIndexes.forEach(n => {
 			this.hexes[n].die();
 		});
 	}
@@ -69,33 +80,41 @@ export class Hexes {
 
 	update(beatNumber) {
 		const flashers = [];
+		const flashNotes = [];
 		const { hexes } = this;
 
 		// figure out which hexes will flash
 		hexes.forEach(h => h.updatePre(beatNumber));
 		hexes.forEach((h, n) => {
 			h.updatePost();
-			if (h.flashing)
+			if (h.flashing) {
 				flashers.push(n);
+				flashNotes.push(h.note);
+			}
 		});
 		this.flashing = flashers;
+		this.flashingNotes = flashNotes;
 		// figure out which will die
-		const toDie = [];
+		const dieIndexes = [];
+		const dieNotes = [];
 		for (let a = 0; a < hexes.length; a++) {
 			const h_a = hexes[a];
 			const h_a_flash = h_a.flashing;
 			if (h_a_flash && !h_a.dead)
-				h_a.getNeighbors().forEach((h_b) => {
+				h_a.getNeighbors().some((h_b) => {
 					const bothFlash = h_a_flash && h_b.flashing;
 					if (bothFlash && !h_b.dead) {
-						toDie.push(a);
+						dieIndexes.push(a);
+						dieNotes.push(h_a.note);
+						return true; // end iteration early if we already know this hex dies
 					}
 				});
 		}
-		this.numLiving -= toDie.length;
-		this.killHexes(toDie);
+		this.numLiving -= dieIndexes.length;
+		this.killHexes(dieIndexes);
 		animate.flash();
-		this.dying = toDie;
+		this.dying = dieIndexes;
+		this.dyingNotes = dieNotes;
 	}
 
 	checkWin() {
@@ -127,30 +146,6 @@ export class Hexes {
 			default: // only 'sources: normal or patterns'
 				counts = h => h.type !== 'buffer';
 		}
-		// switch (this.winType) {
-		// 	case 'all': {
-		// 		for (let h of hexes) {
-		// 			if (!h.dead)
-		// 				return false;
-		// 		}
-		// 		break;
-		// 	}
-		// case 'buffers': {
-		// 		for (let h of hexes) {
-		// 			if (h.type === 'buffer' && !h.dead)
-		// 				return false;
-		// 		}
-		// 		break;
-		// 	}
-		// 	case 'sources':
-		// 	default: { // check if only the source hexes are dead
-		// 		for (let h of hexes) {
-		// 			if (h.type !== 'buffer' & !h.dead)
-		// 				return false;
-		// 		}
-		// 		break;
-		// 	}
-		// }
 		// check all the hexes, see if all the ones that 'count' are dead
 		for (let h of hexes) {
 			if (counts(h) && !h.dead)

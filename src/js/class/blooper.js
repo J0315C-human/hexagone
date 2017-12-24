@@ -88,12 +88,15 @@ export class Blooper {
 		}
 	}
 
-	addBeeps(noteIndexes) {
+	addNote(collection, note) {
+		if (!collection.includes(note))
+			collection.push(note);
+	}
+
+	addBeeps(noteIndexes, noteNames) {
 		noteIndexes.map(n => this.scale[n % this.scale.length])
-			.forEach(note => {
-				if (!this.beepNotes.includes(note))
-					this.beepNotes.push(note);
-			});
+			.concat(noteNames)
+			.forEach(note => this.addNote(this.beepNotes, note));
 	}
 
 	triggerBeeps(time) {
@@ -101,13 +104,10 @@ export class Blooper {
 		this.beepNotes = [];
 	}
 
-
-	addRings(noteIndexes) {
+	addRings(noteIndexes, noteNames) {
 		noteIndexes.map(n => this.scale[n % this.scale.length])
-			.forEach(note => {
-				if (!this.ringNotes.includes(note))
-					this.ringNotes.push(note);
-			});
+			.concat(noteNames)
+			.forEach(note => this.addNote(this.ringNotes, note));
 	}
 
 	triggerRings(time) {
