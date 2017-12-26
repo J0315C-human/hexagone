@@ -210,6 +210,9 @@ export class Hex {
 			hexDef.frozen = true;
 		if (this.type === 'buffer')
 			hexDef.dir = this.directions;
+		if (this.note){
+			hexDef.note = this.note;
+		}
 		return hexDef;
 	}
 }

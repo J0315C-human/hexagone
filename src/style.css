@@ -4,7 +4,10 @@ body {
   display: flex;
   justify-content: center;
 }
-
+ #container {
+   position: relative;
+   left: -15px;
+ }
 .gameBtn {
   width: 210px;
   height: 50px;
@@ -191,13 +194,14 @@ body {
 #hexedit {
   display: none;
   flex-flow: column nowrap;
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
   width: 320px;
   background-color: #99A;
   border-radius: 5px;
   border: 1px solid black;
+  transform: translate(0, 0);
 }
 
 .hexeditlabel {

@@ -167,7 +167,10 @@ export class Board {
 	onHexEdit(x, y) {
 		let { curHexIdx } = this.data;
 		if (curHexIdx !== null && !this.hexes.get(curHexIdx).dead) {
-			hexEditor.show(x + 50, y);
+			const hex = this.hexes.get(curHexIdx);
+			const xOffset = (glob.n_cols - hex.loc.j <= 3) ? -370 : 50;
+			const yOffset = (glob.n_rows - hex.loc.i <= 3) ? -200 : 0;
+			hexEditor.show(x + xOffset, y + yOffset);
 			hexEditor.setHex(this.hexes.get(curHexIdx));
 			hexEditor.setHexBoardData(this.data, curHexIdx);
 		}

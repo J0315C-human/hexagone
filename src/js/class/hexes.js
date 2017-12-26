@@ -12,9 +12,12 @@ export class Hexes {
 		this.boardData = boardData;
 		//create Hex objects
 		this.hexes = [];
-		mapDef.hexes.forEach(hexDef => {
-			if (hexDef.i < glob.n_rows && hexDef.j < glob.n_cols)
+		const scale = mapDef.tune.scale;
+		mapDef.hexes.forEach((hexDef, n) => {
+			if (hexDef.i < glob.n_rows && hexDef.j < glob.n_cols) {
+				hexDef.note = hexDef.note || scale[n % scale.length];
 				this.hexes.push(new Hex(hexDef));
+			}
 		});
 		if (animateIn)
 			animate.setupHexes(this.hexes);
@@ -213,7 +216,9 @@ export class Hexes {
 				.replace('"dir"', 'dir')
 				.replace('"interval"', 'interval')
 				.replace('"type"', 'type')
-				.replace('"pattern"', 'pattern');
+				.replace('"pattern"', 'pattern')
+				.replace('"note"', 'note')
+				.replace(/"/g, '\'');
 		});
 		console.log(output.join(',\n'));
 	}

@@ -98,22 +98,51 @@ const medium6: MapDef = {
 
 const medium7: MapDef = {
   title: 'medium #7',
-  message: 'objective: clear all blocks',
-  winType: 'sources',
+  message: '...this isn\'t a real level yet...',
+  winType: 'all',
   hexes: [
-    { i: 2, j: 3, timing: { interval: 6, delay: 2 } },
-    { i: 1, j: 5, timing: { delay: 2 }, type: 'buffer', dir: [4] }
+    { i: 3, j: 4, timing: { delay: 2 }, type: 'buffer', dir: [5], note: 'C4' },
+    { i: 5, j: 3, timing: { pattern: '.....xxx' }, type: 'pattern', note: 'D4' },
+    { i: 3, j: 2, timing: { delay: 3 }, type: 'buffer', dir: [0] },
+    { i: 2, j: 1, timing: { delay: 4, interval: 5 } },
+    { i: 0, j: 3, timing: { pattern: '.....x' }, type: 'pattern', frozen: true }
   ],
   tune: tunes[6]
 };
 
 const medium8: MapDef = {
   title: 'medium #8',
-  message: 'objective: clear all blocks',
-  winType: 'sources',
+  message: '...this isn\'t a real level yet...',
+  winType: 'normals',
   hexes: [
-    { i: 2, j: 3, timing: { interval: 6, delay: 2 } },
-    { i: 1, j: 5, timing: { delay: 2 }, type: 'buffer', dir: [4] }
+    { i: 1, j: 2, timing: { delay: 2, interval: 6 }, frozen: true, note: 'C4' },
+    { i: 1, j: 5, timing: { delay: 4, interval: 5 }, frozen: true, note: 'D4' },
+    { i: 2, j: 0, timing: { delay: 0, interval: 6 }, frozen: true, note: 'G4' },
+    { i: 2, j: 2, timing: { delay: 2 }, type: 'buffer', frozen: true, dir: [4], note: 'A4' },
+    { i: 2, j: 4, timing: { delay: 2 }, type: 'buffer', frozen: true, dir: [3], note: 'D4' },
+    { i: 2, j: 6, timing: { delay: 1, interval: 5 }, frozen: true, note: 'E4' },
+    { i: 3, j: 1, timing: { delay: 2 }, type: 'buffer', frozen: true, dir: [2], note: 'F4' },
+    { i: 3, j: 2, timing: { delay: 2 }, type: 'buffer', frozen: true, dir: [3], note: 'G4' },
+    { i: 3, j: 5, timing: { delay: 2 }, type: 'buffer', frozen: true, dir: [4], note: 'D5' },
+    { i: 3, j: 6, timing: { delay: 2 }, type: 'buffer', frozen: true, dir: [5], note: 'E5' },
+    { i: 4, j: 2, timing: { delay: 2 }, type: 'buffer', frozen: true, dir: [3], note: 'F5' },
+    { i: 4, j: 4, timing: { delay: 2 }, type: 'buffer', frozen: true, dir: [4], note: 'G5' },
+    { i: 5, j: 0, timing: { pattern: 'x.x...' }, type: 'pattern', note: 'C4' },
+    { i: 5, j: 4, timing: { delay: 2 }, type: 'buffer', frozen: true, dir: [5], note: 'D4' },
+    { i: 6, j: 1, timing: { pattern: '...xx.' }, type: 'pattern', note: 'G4' },
+    { i: 6, j: 6, timing: { pattern: '.x..x.' }, type: 'pattern', note: 'C4' },
+    { i: 2, j: 1, timing: { delay: 1 }, type: 'buffer', frozen: true, dir: [] },
+    { i: 2, j: 5, timing: { delay: 1 }, type: 'buffer', frozen: true, dir: [] },
+    { i: 1, j: 6, timing: { delay: 1 }, type: 'buffer', frozen: true, dir: [] },
+    { i: 0, j: 5, timing: { delay: 1 }, type: 'buffer', frozen: true, dir: [] },
+    { i: 0, j: 4, timing: { delay: 1 }, type: 'buffer', frozen: true, dir: [] },
+    { i: 1, j: 4, timing: { delay: 1 }, type: 'buffer', frozen: true, dir: [] },
+    { i: 3, j: 0, timing: { delay: 1 }, type: 'buffer', frozen: true, dir: [] },
+    { i: 1, j: 0, timing: { delay: 1 }, type: 'buffer', frozen: true, dir: [] },
+    { i: 1, j: 1, timing: { delay: 1 }, type: 'buffer', frozen: true, dir: [] },
+    { i: 0, j: 1, timing: { delay: 1 }, type: 'buffer', frozen: true, dir: [] },
+    { i: 0, j: 2, timing: { delay: 1 }, type: 'buffer', frozen: true, dir: [] },
+    { i: 1, j: 3, timing: { delay: 1 }, type: 'buffer', frozen: true, dir: [] }
   ],
   tune: tunes[6]
 };

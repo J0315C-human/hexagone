@@ -1,6 +1,20 @@
 import autoBind from '../utils/autobind';
 import hexUtils from '../utils/hexUtils';
 
+const isNote = (note) => {
+  if (note.includes('B#') || note.includes('Cb')
+    || note.includes('E#') || note.includes('Fb'))
+    return false;
+  if (note.length === 2) {
+    return 'ABCDEFG'.includes(note[0])
+      && '123456789'.includes(note[1]);
+  } else if (note.length === 3) {
+    return 'ABCDEFG'.includes(note[0])
+      && 'b#'.includes(note[1])
+      && '123456789'.includes(note[2]);
+  } else
+    return false;
+}
 
 class HexEdit {
   constructor() {
@@ -119,15 +133,20 @@ class HexEdit {
         el.checked = false;
       }
     })
+    if (hex.note) {
+      this.elements.inputs.note.value = hex.note;
+    } else {
+      this.elements.inputs.note.value = '';
+    }
   }
   // really shitty way to keep the new hex's event handles
   // referencing the board object.
-  setHexBoardData(boardData, hexIdx){
+  setHexBoardData(boardData, hexIdx) {
     this.hexBoardData = boardData;
     this.hexIdx = hexIdx;
   }
 
-  hexReplace(){
+  hexReplace() {
     this.hex.replaceWith(this.hexDef);
     hexUtils.updateMouseEvents(this.hex, this.hexBoardData, this.hexIdx);
     this.setHex(this.hex);
@@ -152,9 +171,9 @@ class HexEdit {
     const type = e.srcElement.value;
     this.setEditorType(type);
     const h = this.hexDef;
-    switch(type){
+    switch (type) {
       case 'buffer':
-        h.timing = { 
+        h.timing = {
           delay: h.timing.interval || 3
         };
         h.type = 'buffer';
@@ -169,7 +188,7 @@ class HexEdit {
         break;
       case 'normal':
       default:
-        h.timing= {
+        h.timing = {
           interval: h.timing.delay || 3,
           delay: 0
         };
@@ -220,8 +239,10 @@ class HexEdit {
     this.hexReplace();
   }
   onChangeNote(e) {
-    const val = e.srcElement.value;
-    console.log('note needs to be moved');
+    const val = e.srcElement.value.replace(/ /g, '');;
+    const h = this.hexDef;
+    h.note = isNote(val) ? val : 'D4';
+    this.hexReplace();
   }
 }
 
