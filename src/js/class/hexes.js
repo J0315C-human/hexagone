@@ -3,7 +3,6 @@ import glob from '../globals';
 import { Hex } from './hex';
 import hexUtils from '../utils/hexUtils';
 import autoBind from '../utils/autobind';
-import { timingSafeEqual } from 'crypto';
 
 export class Hexes {
 	constructor(mapDef, animateIn = true, boardData) {

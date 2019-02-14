@@ -1,7 +1,8 @@
 import glob from '../globals';
-import { Transport } from 'Tone';
+import { TimelineLite } from 'gsap';
 import autoBind from '../utils/autobind';
 
+const _beatLength = glob.beat_ms / 1000;
 const _minNewHexTime = 3;
 const _maxNewHexTime = 32;
 export class Scheduler {
@@ -9,12 +10,13 @@ export class Scheduler {
 		this.game = game;
 		this.blooper = game.blooper;
 		this.beat = 0;
-		this.transport = Transport.start('+0.2');
-		this.transport.bpm.value = 60000 / glob.beat_ms;
-		this.transport.ppq = 64;
+		this.timeline = new TimelineLite();
+		// this.transport = Transport.start('+0.2');
+		// this.transport.bpm.value = 60000 / glob.beat_ms;
+		// this.transport.ppq = 64;
 		// callback Ids
-		this.updateGameId = null;
-		this.triggerSoundsId = null;
+		// this.updateGameId = null;
+		// this.triggerSoundsId = null;
 		this.delayId = null;
 
 		this.lastBeatTime = null;
@@ -44,23 +46,33 @@ export class Scheduler {
 		this.blooper.restartPad();
 	}
 
-	onBeat(timeScheduled) {
+	onBeat() {
 		Promise.resolve(this.updateGame())
-			.then(() => this.triggerSounds(timeScheduled));
+			.then(() => this.triggerSounds());
 	}
 
 	startSchedule() {
-		this.transport.clear(this.updateGameId);
-		this.transport.clear(this.triggerSoundsId);
-		this.updateGameId = this.transport.scheduleRepeat(this.onBeat, '4n', '+16n');
+		// this.transport.clear(this.updateGameId);
+		// this.transport.clear(this.triggerSoundsId);
+		// this.updateGameId = this.transport.scheduleRepeat(this.onBeat, '4n', '+16n');
+		
+		this.timeline.clear();
+		this.timeline.add(() => { 
+			this.timeline.restart();
+		}, _beatLength);
+		this.timeline.add(this.onBeat, _beatLength - 0.01);
+		this.timeline.play();
 	}
 
 	stopSchedule() {
-		this.transport.clear(this.updateGameId);
-		this.transport.clear(this.triggerSoundsId);
+		// this.transport.clear(this.updateGameId);
+		// this.transport.clear(this.triggerSoundsId);
+		// this.updateGameId = null;
+		// this.triggerSoundsId = null;
+		this.timeline.pause();
+		this.timeline.time(0);
+		this.timeline.clear();
 		clearInterval(this.delayId);
-		this.updateGameId = null;
-		this.triggerSoundsId = null;
 		this.delayId = null;
 	}
 
@@ -98,8 +110,9 @@ export class Scheduler {
 	}
 
 	// timeDelta is subtracted from preschedule_ms to schedule the audio events
-	triggerSounds(timeScheduled) {
-		this.blooper.triggerAll(timeScheduled);
+	triggerSounds() {
+		// this.blooper.triggerAll(timeScheduled);
+		this.blooper.triggerAll();
 	}
 
 }
