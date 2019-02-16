@@ -8,7 +8,7 @@ const game = new Game();
 const ctrl = new Controller(game);
 ctrl.showStartInterface();
 
-// stupid hack to be able to 
+// stupid hack to be able to use audiocontext
 document.documentElement.addEventListener(
   'mousedown', function () {
     if ((Tone as any).context.state !== 'running') {
