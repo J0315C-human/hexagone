@@ -1,10 +1,12 @@
 import { HexCoordinateSpace } from './types/game';
 
+type GameMode = 'puzzle' | 'arcade' | 'start';
+
 const glob = {
   // debug mode - clicking hexes prints out their info
   debug: false,
   buildmode: false,
-  gameMode: 'puzzle',
+  gameMode: 'puzzle' as GameMode,
   score: 0,
   n_rows: 7, // i or y
   n_cols: 7, // j or x
@@ -92,4 +94,8 @@ glob.elements.board.style.width = `${glob.bg_w}px`;
 glob.elements.board.style.height = `${glob.bg_h}px`;
 glob.elements.board.style.zIndex = glob.layers.background;
 
+(window as any).gmode = () => {
+  console.log(glob.gameMode);
+};
 export default glob;
+

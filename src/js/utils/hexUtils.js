@@ -88,11 +88,20 @@ const _deselectHex = (hex, data, index) => {
 };
 
 const updateMouseEvents = (hex, data, index) => {
-	hex.elements.el.onmouseenter = () => _selectHex(hex, data, index);
-	hex.elements.el.ontouchstart = () => _selectHex(hex, data, index);
+	hex.elements.el.onmouseenter = () => {
+		_selectHex(hex, data, index);
+	}
+	hex.elements.el.ontouchstart = (e) => {
+		e.preventDefault();
+		_selectHex(hex, data, index);
+	}
 
-	hex.elements.el.onmouseleave = () => _deselectHex(hex, data, index);
-	hex.elements.el.ontouchend = () => _deselectHex(hex, data, index);
+	hex.elements.el.onmouseleave = () => {
+		_deselectHex(hex, data, index);
+	}
+	hex.elements.el.ontouchend = (e) => {
+		_deselectHex(hex, data, index);
+	}
 };
 
 export default {

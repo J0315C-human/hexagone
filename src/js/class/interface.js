@@ -52,6 +52,7 @@ export class Interface {
 		if (glob.gameMode === 'start') return;
 
 		this.addButton('start game', () => {
+			glob.gameMode = 'puzzle';
 			this.ctrl.load(1);
 		});
 		this.addSwitchModeButton();
