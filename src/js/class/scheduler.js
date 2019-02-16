@@ -1,5 +1,5 @@
 import glob from '../globals';
-import { Transport } from 'Tone';
+import { Transport, Draw } from 'Tone';
 import autoBind from '../utils/autobind';
 
 const _minNewHexTime = 3;
@@ -45,8 +45,10 @@ export class Scheduler {
 	}
 
 	onBeat(timeScheduled) {
-		Promise.resolve(this.updateGame())
-			.then(() => this.triggerSounds(timeScheduled));
+		Draw.schedule(()=> {
+			Promise.resolve(this.updateGame())
+			.then(this.triggerSounds(timeScheduled));
+		}, timeScheduled);
 	}
 
 	startSchedule() {

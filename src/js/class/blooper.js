@@ -1,10 +1,8 @@
-import { Compressor, Vibrato, Freeverb, PolySynth, Synth } from 'Tone';
+import { Vibrato, Freeverb, PolySynth, Synth } from 'Tone';
 import glob from '../globals';
 
-let compressor = new Compressor(-20, 3).toMaster();
-let beepCompressor = new Compressor(0, 3).connect(compressor);
-let _tremolo = new Vibrato(5, 0.2).connect(compressor);
-let _freeverb = new Freeverb().connect(compressor);
+let _tremolo = new Vibrato(5, 0.2).toMaster();
+let _freeverb = new Freeverb().toMaster();
 let _tremolo2 = new Vibrato(2.5, 0.07).connect(_freeverb);
 
 _freeverb.dampening.value = 1000;
@@ -23,8 +21,8 @@ const _beepSettings = {
 	},
 	'envelope': {
 		'attack': 0.01,
-		'decay': 0.2,
-		'release': 1
+		'decay': 0.15,
+		'release': 0.7
 	}
 };
 
@@ -48,17 +46,17 @@ const _ringSettings = {
 		'attack': 0.5,
 		'decay': 0.5,
 		'sustain': 0.5,
-		'release': 20
+		'release': 10
 	}
 };
 export class Blooper {
 	constructor(initialTune) {
-		this.beep = new PolySynth(6, Synth, _beepSettings).connect(beepCompressor);
+		this.beep = new PolySynth(6, Synth, _beepSettings).toMaster();
 		this.pad = new PolySynth(8, Synth, _padSettings).connect(_tremolo2);
 		this.ring = new PolySynth(12, Synth, _ringSettings).connect(_tremolo);
-		this.beep.set('volume', -14);
-		this.pad.set('volume', -40);
-		this.ring.set('volume', -18);
+		this.beep.set('volume', -25);
+		this.pad.set('volume', -46);
+		this.ring.set('volume', -32);
 
 		this.beepNotes = [];
 		this.padNotes = [];

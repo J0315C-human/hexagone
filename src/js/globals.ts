@@ -37,7 +37,7 @@ const glob = {
   bg_left: 0,
   bg_top: 0,
   beat_ms: 500, // duration of each beat
-  preschedule_ms: 100, // how far ahead events are scheduled
+  preschedule_ms: 200, // how far ahead events are scheduled
   // (worse percieved responsiveness for better animation and audio performance)
   paused: true,
   interfaceVisible: false,
