@@ -3,7 +3,6 @@ import glob from '../globals';
 import { Hex } from './hex';
 import hexUtils from '../utils/hexUtils';
 import autoBind from '../utils/autobind';
-import { timingSafeEqual } from 'crypto';
 
 export class Hexes {
 	constructor(mapDef, animateIn = true, boardData) {
@@ -206,20 +205,21 @@ export class Hexes {
 
 	// logging for build mode - produce a pasteable list of hexes
 	log() {
-		const output = this.hexes.map(h => {
-			return JSON.stringify(h.getHexDef())
-				.replace('"i"', 'i')
-				.replace('"j"', 'j')
-				.replace('"timing"', 'timing')
-				.replace('"frozen"', 'frozen')
-				.replace('"delay"', 'delay')
-				.replace('"dir"', 'dir')
-				.replace('"interval"', 'interval')
-				.replace('"type"', 'type')
-				.replace('"pattern"', 'pattern')
-				.replace('"note"', 'note')
-				.replace(/"/g, '\'');
-		});
+		const output = this.hexes.filter(h => !h.dead)
+			.map(h => {
+				return JSON.stringify(h.getHexDef())
+					.replace('"i"', 'i')
+					.replace('"j"', 'j')
+					.replace('"timing"', 'timing')
+					.replace('"frozen"', 'frozen')
+					.replace('"delay"', 'delay')
+					.replace('"dir"', 'dir')
+					.replace('"interval"', 'interval')
+					.replace('"type"', 'type')
+					.replace('"pattern"', 'pattern')
+					.replace('"note"', 'note')
+					.replace(/"/g, '\'');
+			});
 		console.log(output.join(',\n'));
 	}
 }

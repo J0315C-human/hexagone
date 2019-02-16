@@ -65,6 +65,11 @@ export class Controller {
 		this.demoRunning = true;
 	}
 
+	showStartInterface() {
+		animate.interfaceIn();
+		this.interface.hidePlayBtn();
+	}
+
 	play(withInterface = false) {
 		if (this.game.isLoading()) return;
 		if (withInterface) {

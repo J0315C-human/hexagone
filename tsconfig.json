@@ -1,14 +1,23 @@
 {
     "compilerOptions": {
-        "module": "es6",
-        "target": "es6",
+        "module": "esnext",
+        "target": "es5",
         "noImplicitAny": false,
+        "strict": false,
+        "lib": [
+            "es2016",
+            "dom"
+        ],
         "moduleResolution": "node",
-        "allowSyntheticDefaultImports": true,
         "sourceMap": false,
         "outDir": "dist",
         "allowJs": true,
         "baseUrl": ".",
+        "allowSyntheticDefaultImports": true,
+        "forceConsistentCasingInFileNames": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "suppressImplicitAnyIndexErrors": true,
         "paths": {
             "*": [
                 "node_modules/*",

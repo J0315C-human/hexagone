@@ -1,5 +1,4 @@
 import { Compressor, Vibrato, Freeverb, PolySynth, Synth } from 'Tone';
-import tunes from '../tunes';
 import glob from '../globals';
 
 let compressor = new Compressor(-20, 3).toMaster();
