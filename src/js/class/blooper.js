@@ -1,12 +1,9 @@
-// import { Compressor, Vibrato, Freeverb, PolySynth, Synth } from 'Tone';
-// import tunes from '../tunes';
+import { Vibrato, Freeverb, PolySynth, Synth } from 'Tone';
 import glob from '../globals';
 
-// let compressor = new Compressor(-20, 3).toMaster();
-// let beepCompressor = new Compressor(0, 3).connect(compressor);
-// let _tremolo = new Vibrato(5, 0.2).connect(compressor);
-// let _freeverb = new Freeverb().connect(compressor);
-// let _tremolo2 = new Vibrato(2.5, 0.07).connect(_freeverb);
+let _tremolo = new Vibrato(5, 0.2).toMaster();
+let _freeverb = new Freeverb().toMaster();
+let _tremolo2 = new Vibrato(2.5, 0.07).connect(_freeverb);
 
 // _freeverb.dampening.value = 1000;
 
@@ -18,48 +15,48 @@ const _defaultScale = [
 	'E3', 'F#3', 'G3', 'A6', 'B6', 'C6', 'D6',
 ];
 
-// const _beepSettings = {
-// 	'oscillator': {
-// 		type: 'sine'
-// 	},
-// 	'envelope': {
-// 		'attack': 0.01,
-// 		'decay': 0.2,
-// 		'release': 1
-// 	}
-// };
+const _beepSettings = {
+	'oscillator': {
+		type: 'sine'
+	},
+	'envelope': {
+		'attack': 0.01,
+		'decay': 0.15,
+		'release': 0.7
+	}
+};
 
-// const _padSettings = {
-// 	'oscillator': {
-// 		type: 'square'
-// 	},
-// 	'envelope': {
-// 		'attack': 0.01,
-// 		'decay': 1,
-// 		'sustain': 0.7,
-// 		'release': 4
-// 	}
-// };
+const _padSettings = {
+	'oscillator': {
+		type: 'square'
+	},
+	'envelope': {
+		'attack': 0.01,
+		'decay': 1,
+		'sustain': 0.7,
+		'release': 4
+	}
+};
 
-// const _ringSettings = {
-// 	'oscillator': {
-// 		type: 'sine'
-// 	},
-// 	'envelope': {
-// 		'attack': 0.5,
-// 		'decay': 0.5,
-// 		'sustain': 0.5,
-// 		'release': 20
-// 	}
-// };
+const _ringSettings = {
+	'oscillator': {
+		type: 'sine'
+	},
+	'envelope': {
+		'attack': 0.5,
+		'decay': 0.5,
+		'sustain': 0.5,
+		'release': 10
+	}
+};
 export class Blooper {
 	constructor(initialTune) {
-		// this.beep = new PolySynth(6, Synth, _beepSettings).connect(beepCompressor);
-		// this.pad = new PolySynth(8, Synth, _padSettings).connect(_tremolo2);
-		// this.ring = new PolySynth(12, Synth, _ringSettings).connect(_tremolo);
-		// this.beep.set('volume', -14);
-		// this.pad.set('volume', -40);
-		// this.ring.set('volume', -18);
+		this.beep = new PolySynth(6, Synth, _beepSettings).toMaster();
+		this.pad = new PolySynth(8, Synth, _padSettings).connect(_tremolo2);
+		this.ring = new PolySynth(12, Synth, _ringSettings).connect(_tremolo);
+		this.beep.set('volume', -25);
+		this.pad.set('volume', -46);
+		this.ring.set('volume', -32);
 
 		this.beepNotes = [];
 		this.padNotes = [];

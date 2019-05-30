@@ -46,7 +46,10 @@ export class Board {
 		};
 		el.ontouchmove = this.onTouchMove;
 		el.ontouchstart = this.onTouchStart;
-		el.ontouchend = this.releaseHex;
+		el.ontouchend = () => {
+			this.releaseHex();
+			this.data.curHexIdx = null;
+		}
 		el.ontouchcancel = this.releaseHex;
 
 		document.body.onkeyup = this.onKeyUp;
@@ -176,7 +179,7 @@ export class Board {
 		}
 	}
 
-	releaseHex() {
+	releaseHex(e) {
 		const d = this.data;
 		if (d.curHexIdx !== null && d.isDragging) {
 			const hex = this.hexes.get(d.curHexIdx);

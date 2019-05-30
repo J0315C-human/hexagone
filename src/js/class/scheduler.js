@@ -1,5 +1,5 @@
 import glob from '../globals';
-import { TimelineLite } from 'gsap';
+import { Transport, Draw } from 'Tone';
 import autoBind from '../utils/autobind';
 
 const _beatLength = glob.beat_ms / 1000;
@@ -46,9 +46,11 @@ export class Scheduler {
 		this.blooper.restartPad();
 	}
 
-	onBeat() {
-		Promise.resolve(this.updateGame())
-			.then(() => this.triggerSounds());
+	onBeat(timeScheduled) {
+		Draw.schedule(()=> {
+			Promise.resolve(this.updateGame())
+			.then(this.triggerSounds(timeScheduled));
+		}, timeScheduled);
 	}
 
 	startSchedule() {

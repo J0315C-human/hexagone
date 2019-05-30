@@ -8,7 +8,7 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run build && concurrently \"webpack-dev-server\" \"npm run watch-ts\"",
-    "build": "rm -rf dist && npm run build-ts && rm -rf build && webpack -p",
+    "build": "rm -rf dist && npm run build-ts && rm -rf build && webpack -p --config webpack.prod.js",
     "build-ts": "tsc && npm run tslint && npm run copy-static-assets",
     "watch-ts": "tsc -w",
     "tslint": "tslint -c tslint.json -p tsconfig.json",
